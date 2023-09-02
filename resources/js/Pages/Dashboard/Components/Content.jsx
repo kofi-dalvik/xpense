@@ -1,6 +1,6 @@
 import { Header, Summary, Categories } from '@/Pages/Dashboard/Components';
 
-export default function Content() {
+export default function Content({ auth, categories }) {
     return (
         <div className="x-dashboard-c">
             <Header />
@@ -8,7 +8,7 @@ export default function Content() {
             <div className='p-5'>
                 <Summary/>
                 <div className="my-14"></div>
-                <Categories />
+                <Categories categories={categories} />
             </div>
         </div>
     );

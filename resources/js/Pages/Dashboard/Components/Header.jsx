@@ -8,14 +8,14 @@ export default function Header() {
                 {/* <span className="ms-2">XPENSE</span> */}
             </div>
 
-            <form name="search" method="GET" className="search">
+            {/* <form name="search" method="GET" className="search">
                 <div className="input-group">
                     <input type="text" className="form-control" placeholder="Search" />
                     <button className="btn bg-purple-100" type="button">
                         <i className="mdi mdi-magnify text-purple-700"></i>
                     </button>
                 </div>
-            </form>
+            </form> */}
         </header>
     );
 }
