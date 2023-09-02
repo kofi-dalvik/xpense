@@ -4,12 +4,12 @@ import { Content, Transactions } from '@/Pages/Dashboard/Components';
 
 export default function Dashboard({ auth }) {
     return (
-        <AuthenticatedLayout>
+        <AuthenticatedLayout hideAll={true}>
             <Head title="Dashboard" />
 
-            <div className="x-dashboard">
+            <div className="x-dashboard px-20">
                 <Content />
-                <Transactions />
+                <Transactions auth={auth}/>
             </div>
         </AuthenticatedLayout>
     );

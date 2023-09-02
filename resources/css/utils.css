@@ -43,5 +43,5 @@
 }
 
 .input-group .btn {
-    @apply absolute right-0 top-0 bottom-0 flex items-center px-3 bg-purple-500 text-white;
+    @apply absolute right-0 top-0 bottom-0 flex items-center px-3 ;
 }
