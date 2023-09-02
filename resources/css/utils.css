@@ -1,0 +1,47 @@
+.text-muted {
+    @apply text-slate-400;
+}
+
+.text-primary {
+    color: #127CF9;
+}
+
+.text-secondary {
+    color: #6E84A3;
+}
+
+.text-success {
+    color: #00C48C;
+}
+
+.text-warning {
+    color: #FFB822;
+}
+
+.text-info {
+    color: #127CF9;
+}
+
+.text-danger {
+    color: #F64E60;
+}
+
+.text-dark {
+    color: #1E1E1E;
+}
+
+.btn {
+    @apply inline-block rounded-xl px-4 py-2 text-sm;
+}
+
+.input-group, .form-group {
+    @apply relative;
+}
+
+.input-group .form-control, .form-group .form-control {
+    @apply px-3 py-1 text-sm rounded-xl border border-gray-300;
+}
+
+.input-group .btn {
+    @apply absolute right-0 top-0 bottom-0 flex items-center px-3 bg-purple-500 text-white;
+}

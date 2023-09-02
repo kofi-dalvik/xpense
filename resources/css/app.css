@@ -1,3 +1,7 @@
+@import './utils.css';
+@import './xpense.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
