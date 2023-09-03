@@ -79,6 +79,7 @@ class DashboardController extends Controller
             'icon' => 'required|string|max:255',
             'color' => 'required|string|max:255',
             'parent_id' => 'nullable|exists:categories,id',
+            'is_income' => 'required|boolean'
         ]);
 
         if ($request->id) {
@@ -94,6 +95,7 @@ class DashboardController extends Controller
             'icon' => $request->input('icon'),
             'color' => $request->input('color'),
         ];
+        $category->type = $request->input('is_income') ? Transaction::INCOME : Transaction::EXPENSE;
         $category->save();
 
         return redirect()->back()->with([

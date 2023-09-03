@@ -108,6 +108,8 @@ const AddTransactionForm = ({
     const selectedCategory = categories.find((item) => item.id === category_id);
     const subCategories = get(selectedCategory, 'children', []);
 
+    const filteredCategories = categories.filter((item) => item.type === type);
+
     return (
         <div className="mx-2">
             <div className="mb-5">
@@ -200,7 +202,7 @@ const AddTransactionForm = ({
             <div className="form-group my-5">
                 <InputLabel value={'Category'}/>
                 <div className="flex overflow-x-auto py-2">
-                    {categories.map((category) => {
+                    {filteredCategories.map((category) => {
                         return (
                             <CategoryItem
                                 key={category.id}

@@ -13,6 +13,7 @@ const AddCategory = ({ show, setShow, category, onChange, parents, refreshDashbo
         name: category ? category.name : '',
         parent_id: category ? category.parent_id : '',
         color: category ? category.ui.color : '',
+        is_income: category ? category.is_income : false,
     });
 
     const submit = (e) => {
@@ -48,13 +49,15 @@ const AddCategory = ({ show, setShow, category, onChange, parents, refreshDashbo
             onClose={() => setShow(false) }>
                 <div>
                     <form className="" onSubmit={submit}>
-                        <EditCategory
-                            setData={setData}
-                            reset={reset}
-                            parents={parents}
-                            errors={errors}
-                            {...data}
-                        />
+                        <div className="modal-content">
+                            <EditCategory
+                                setData={setData}
+                                reset={reset}
+                                parents={parents}
+                                errors={errors}
+                                {...data}
+                            />
+                        </div>
 
                         <div className="flex justify-between">
                             <label className="flex items-center">

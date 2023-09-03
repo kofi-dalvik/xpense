@@ -4,8 +4,9 @@ import TextInput from "@/Components/TextInput";
 import { chunk } from "lodash";
 import CategoryItem from "./CategoryItem";
 import { COLORS, ICONS } from "@/contants";
+import Checkbox from "@/Components/Checkbox";
 
-const EditCategory = ({ id, name, parent_id, color, icon, setData, errors, reset, parents }) => {
+const EditCategory = ({ id, name, parent_id, color, icon, is_income, setData, errors, reset, parents }) => {
     const colors = COLORS;
     let icons = ICONS;
     icons = chunk(icons, icons.length / 2);
@@ -19,18 +20,31 @@ const EditCategory = ({ id, name, parent_id, color, icon, setData, errors, reset
     };
 
     return (
-        <>
-            <div className="form-group my-3">
-                <InputLabel value={'Category Name (required)'}/>
-                <TextInput
-                    type="text"
-                    name="name"
-                    value={ name }
-                    placeholder={`Category name`}
-                    className="mt-1 block w-full"
-                    onChange={ (e) => setData('name', e.target.value) }
-                />
-                <InputError message={errors.name} className="mt-2" />
+        <div className="px-1">
+            <div className="mb-3">
+                <div className="form-group">
+                    <InputLabel value={'Category Name (required)'}/>
+                    <TextInput
+                        type="text"
+                        name="name"
+                        value={ name }
+                        placeholder={`Category name`}
+                        className="mt-1 block w-full"
+                        onChange={ (e) => setData('name', e.target.value) }
+                    />
+                    <InputError message={errors.name} className="mt-2" />
+                </div>
+
+                <div className="form-group my-5">
+                    <label className="flex items-center cursor-pointer">
+                        <Checkbox
+                            name="type"
+                            checked={ is_income }
+                            onChange={(e) => setData('is_income', e.target.checked) }
+                        />
+                        <span className="ml-2 text-sm text-gray-600">Mark as income category</span>
+                    </label>
+                </div>
             </div>
 
             <div className="form-group my-3">
@@ -98,7 +112,7 @@ const EditCategory = ({ id, name, parent_id, color, icon, setData, errors, reset
                 </div>
                 <InputError message={errors.parent_id} className="mt-2" />
             </div>
-        </>
+        </div>
     );
 };
 
