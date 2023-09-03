@@ -48,6 +48,36 @@ class DashboardController extends Controller
         ]);
     }
 
+    public function storeCategory(Request $request)
+    {
+        //validate request
+        $request->validate([
+            'id' => 'nullable|exists:categories,id',
+            'name' => 'required|string|max:255|unique:categories,name',
+            'icon' => 'required|string|max:255',
+            'color' => 'required|string|max:255',
+            'parent_id' => 'nullable|exists:categories,id',
+        ]);
+
+        if ($request->id) {
+            $category = Category::main()->find($request->id);
+        } else {
+            $category = new Category();
+        }
+
+        $category->name = $request->input('name');
+        $category->parent_id = $request->input('parent_id');
+        $category->ui = [
+            'icon' => $request->input('icon'),
+            'color' => $request->input('color'),
+        ];
+        $category->save();
+
+        return redirect()->back()->with([
+            'message' => 'Category created successfully'
+        ]);
+    }
+
     public function getAnalytics(Request $request)
     {
         $from = $request->input('from') . ' 00:00:00';
@@ -72,13 +102,7 @@ class DashboardController extends Controller
     {
         $user_id = auth()->user()->id;
 
-        $categories = Category::whereNull('parent_id')->withCount([
-                        'transactions AS total' => function ($query) {
-                            $query->select(
-                                DB::raw("SUM(amount) as total")
-                            );
-                        }
-                    ])->get();
+        $categories = Category::main($user_id)->get();
 
         $categories = $categories->map(function ($category) use ($from, $to, $user_id) {
             $category->total = Transaction::where('user_id', $user_id)
@@ -90,7 +114,7 @@ class DashboardController extends Controller
         });
 
         //sort by descending order of total
-        $categories = $categories->sortByDesc('total')->values();
+        $categories = $categories->sortByDesc('total')->sortByDesc('created_at')->values();
 
         return $categories;
     }

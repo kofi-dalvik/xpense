@@ -13,13 +13,14 @@ return new class extends Migration
     public function up(): void
     {
         $categories = [
-            ['name' => 'Food', 'icon' => 'mdi-food', 'color' => 'text-primary'],
-            ['name' => 'Transportation', 'icon' => 'mdi-car', 'color' => 'text-secondary'],
-            ['name' => 'Shopping', 'icon' => 'mdi-shopping', 'color' => 'text-success'],
-            ['name' => 'Entertainment', 'icon' => 'mdi-gamepad-variant', 'color' => 'text-warning'],
-            ['name' => 'Health', 'icon' => 'mdi-heart-pulse', 'color' => 'text-danger'],
-            ['name' => 'Education', 'icon' => 'mdi-school', 'color' => 'text-info'],
-            ['name' => 'Investment', 'icon' => 'mdi-bank', 'color' => 'text-dark']
+            ['name' => 'Income', 'icon' => 'mdi-cash-multiple', 'color' => 'success'],
+            ['name' => 'Food', 'icon' => 'mdi-food', 'color' => 'pink'],
+            ['name' => 'Transportation', 'icon' => 'mdi-car', 'color' => 'secondary'],
+            ['name' => 'Shopping', 'icon' => 'mdi-shopping', 'color' => 'indigo'],
+            ['name' => 'Entertainment', 'icon' => 'mdi-gamepad-variant', 'color' => 'warning'],
+            ['name' => 'Health', 'icon' => 'mdi-heart-pulse', 'color' => 'danger'],
+            ['name' => 'Education', 'icon' => 'mdi-school', 'color' => 'info'],
+            ['name' => 'Investment', 'icon' => 'mdi-bank', 'color' => 'dark']
         ];
 
         foreach ($categories as $index => $category) {

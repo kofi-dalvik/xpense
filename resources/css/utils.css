@@ -1,34 +1,73 @@
+/* TEXT COLORS */
 .text-muted {
     @apply text-slate-400;
 }
-
 .text-primary {
     color: #127CF9;
 }
-
 .text-secondary {
     color: #6E84A3;
 }
-
 .text-success {
     color: #00C48C;
 }
-
 .text-warning {
     color: #FFB822;
 }
-
 .text-info {
     color: #127CF9;
 }
-
 .text-danger {
     color: #F64E60;
 }
-
 .text-dark {
     color: #1E1E1E;
 }
+.text-indigo {
+    @apply text-indigo-500;
+}
+.text-purple {
+    @apply text-purple-500;
+}
+.text-pink {
+    @apply text-pink-500;
+}
+.text-gray {
+    @apply text-gray-500;
+}
+
+/* BACKGROUND COLORS */
+.bg-success {
+    background-color: #00C48C;
+}
+.bg-secondary {
+    background-color: #6E84A3;
+}
+.bg-warning {
+    background-color: #FFB822;
+}
+.bg-info {
+    background-color: #127CF9;
+}
+.bg-danger {
+    background-color: #F64E60;
+}
+.bg-dark {
+    background-color: #1E1E1E;
+}
+.bg-pink {
+    @apply bg-pink-500;
+}
+.bg-purple {
+    @apply bg-purple-500;
+}
+.bg-gray {
+    @apply bg-gray-500;
+}
+.bg-indigo {
+    @apply bg-indigo-500;
+}
+
 
 .btn {
     @apply inline-block rounded-xl px-4 py-2 text-sm;
@@ -44,4 +83,10 @@
 
 .input-group .btn {
     @apply absolute right-0 top-0 bottom-0 flex items-center px-3 ;
+}
+
+.box-xs {
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
 }

@@ -23,7 +23,7 @@ export default function Content({
 
                 <div className="my-14"></div>
 
-                <Categories categories={categories} />
+                <Categories categories={categories} refreshDashboard={refreshDashboard} />
             </div>
         </div>
     );

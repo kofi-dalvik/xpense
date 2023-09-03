@@ -19,4 +19,13 @@ class Category extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function scopeMain($query, $user_id)
+    {
+        return $query->whereNull('parent_id')
+            ->where(function ($query) use ($user_id) {
+                $query->where('user_id', $user_id)
+                    ->orWhereNull('user_id');
+            });
+    }
 }
