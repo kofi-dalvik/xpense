@@ -9,7 +9,6 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
     const [transactions, setTransactions] = useState(trans);
     const [summary, setSummary] = useState(smry);
     const [budget, setBudget] = useState(bdgt);
-    const [key, setKey] = useState(0);
 
     const [dateRange, setDateRange] = useState({
         from: moment().startOf('month').format('YYYY-MM-DD'),
@@ -21,6 +20,7 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
         setCategories(curr => data.cats);
         setTransactions(curr => data.trans)
         setSummary(curr => data.smry);
+        setBudget(curr => data.bdgt);
     };
 
     const fetchData = () => {
@@ -39,7 +39,7 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
     }, [dateRange]);
 
     return (
-        <AuthenticatedLayout key={key} hideAll={true}>
+        <AuthenticatedLayout hideAll={true}>
             <Head title="Dashboard" />
 
             <div className="x-dashboard px-20">
