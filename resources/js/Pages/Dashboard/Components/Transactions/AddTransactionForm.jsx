@@ -32,7 +32,7 @@ const AddTransactionForm = ({
 
     return (
         <div className="mx-2">
-            <div className="my-5">
+            <div className="mb-5">
                 <InputLabel value="Transaction Type" />
                 <div className="flex flex-wrap border p-1 rounded">
                     { types.map((item) => {

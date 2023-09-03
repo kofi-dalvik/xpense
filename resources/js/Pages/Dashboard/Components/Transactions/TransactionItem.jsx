@@ -10,7 +10,7 @@ const TransactionItem = ({ currency, transaction }) => {
 
             <div className='grow flex justify-between w-4/5'>
                 <div className='me-2 w-2/3'>
-                    <div className='text-sm truncate'>{ transaction.title }</div>
+                    <div className='text-sm truncate'>{ transaction.description }</div>
                     <div className='text-xs text-muted truncate'>{date}</div>
                 </div>
                 <div className={`w-1/3 text-sm ${textColor} font-bold truncate text-right`}>

@@ -109,7 +109,7 @@ class DashboardController extends Controller
             'amount' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
             'sub_category_id' => 'nullable|exists:categories,id',
-            'description' => 'nullable|string|max:255',
+            'description' => 'required|string|max:255',
         ]);
 
         $category_id = $request->input('sub_category_id') ?? $request->input('category_id');
