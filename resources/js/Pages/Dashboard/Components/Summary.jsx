@@ -1,6 +1,6 @@
-import { TextButton, SectionTitle } from "@/Pages/Dashboard/Components";
+import { TextButton, SectionTitle, DateRangePicker } from "@/Pages/Dashboard/Components";
 
-const Budget = () => {
+const Budget = ({budget}) => {
     return (
         <div className="budget flex flex-col ps-2 pe-2">
             <h5>Budget</h5>
@@ -12,14 +12,16 @@ const Budget = () => {
             <div className="p-0 w-full">
                 <div className="grid grid-cols-2 w-full">
                         <div className="text-center">
-                        <div className="m-0">$500</div>
+                        <div className="m-0">$ {budget.limit.toLocaleString()}</div>
                         <p className="m-0 text-sm text-muted">
-                            August Limit <br/> <TextButton text="Set Limit"/>
+                            Monthly Limit <br/> <TextButton text="Set Limit"/>
                         </p>
                     </div>
 
                     <div className="text-center">
-                        <div className="m-0">$50</div>
+                        <div className={`m-0 ${budget.balance < 0 ? 'text-red-500' : 'text-success'}`}>
+                            $ { budget.balance.toLocaleString() }
+                        </div>
                         <p className="m-0 text-sm text-muted">
                             Amount <br/> Remaining
                         </p>
@@ -30,21 +32,23 @@ const Budget = () => {
     );
 };
 
-export default function Summary() {
+export default function Summary({ dateRange, setDateRange, summary, budget }) {
     const figures = [
-        { name: 'Income', amount: 234, color: 'text-success', icon: 'mdi-chevron-double-up' },
-        { name: 'Expense', amount: 23523, color: 'text-danger', icon: 'mdi-chevron-double-down' },
-        { name: 'Balance', amount: 532, color: 'text-primary', icon: 'mdi-autorenew', hideMore: true },
+        { name: 'Income', amount: summary.income, color: 'text-success', icon: 'mdi-chevron-double-up' },
+        { name: 'Expense', amount: summary.expense, color: 'text-danger', icon: 'mdi-chevron-double-down' },
+        { name: 'Balance', amount: summary.balance, color: 'text-primary', icon: 'mdi-autorenew', hideMore: true },
     ];
+
+    const secTitle = `Analytics from ${moment(dateRange.from).format('MMM DD')} to ${moment(dateRange.to).format('MMM DD')}`;
 
     return (
         <>
             <SectionTitle
                 icon="mdi-chart-areaspline"
-                title="Dashboard Analytics (August 2023)"
+                title={ secTitle }
                 subtitle="View summary of your transactions">
-                    <div className='bg-white p-3 rounded'>
-                        Date Range Picker
+                    <div className="bg-purple-100 p-3 rounded">
+                        <DateRangePicker value={ dateRange } onChange={ setDateRange } />
                     </div>
             </SectionTitle>
 
@@ -59,7 +63,7 @@ export default function Summary() {
                                             <i className={`mdi ${figure.icon} text-xl`}></i>
                                         </div>
                                         <div className="amount">
-                                            <span className="text-sm">$</span> 23.42
+                                            <span className="text-sm">$</span> {figure.amount.toLocaleString()}
                                         </div>
                                         <div className="text-muted flex items-center text-sm">
                                             <span className="me-2">{figure.name}</span>
@@ -81,7 +85,7 @@ export default function Summary() {
                     </div>
 
                     <div className="col-span-4">
-                        <Budget />
+                        <Budget budget={budget}/>
                     </div>
                 </div>
             </div>

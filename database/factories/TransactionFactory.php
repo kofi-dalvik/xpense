@@ -21,10 +21,11 @@ class TransactionFactory extends Factory
         $count = Category::count();
 
         return [
+            'user_id' => 1,
             'category_id' => $this->faker->numberBetween(1, $count),
             'title' => $this->faker->sentence(random_int(2, 6)),
             'description' => $this->faker->sentence,
-            'date' => $this->faker->dateTime,
+            'date' => $this->faker->dateTimeBetween('-3 month', 'now'),
             'amount' => $this->faker->randomFloat(2, 0, 1000),
             'type' => $this->faker->randomElement(Transaction::TYPES),
         ];

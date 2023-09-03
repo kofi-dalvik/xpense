@@ -23,7 +23,7 @@ export default function Categories({ categories }) {
                                 <i className={`mdi ${category.ui.icon} ${category.ui.color} text-5xl p-2`}></i>
                             </div>
                             <div className="text-muted text-sm truncate">{category.name}</div>
-                            <div className="text-base font-bold">${category.total.toLocaleString()}</div>
+                            <div className="text-base font-semibold">${category.total.toLocaleString()}</div>
                             <TextButton icon="mdi-settings" text="Configure"/>
                         </div>
                     );

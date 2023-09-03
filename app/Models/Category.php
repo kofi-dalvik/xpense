@@ -14,4 +14,9 @@ class Category extends Model
     protected $casts = [
         'ui' => 'array',
     ];
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

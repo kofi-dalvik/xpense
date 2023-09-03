@@ -3,13 +3,8 @@ import { SectionTitle } from '.';
 
 const Transaction = ({ transaction }) => {
     const textColor = transaction.type === 'income' ? 'text-success' : 'text-red-400';
-    let date = new Date(transaction.date);
-    date = date.toLocaleDateString('en-US', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
+    let date = moment(transaction.date).format('MMM DD, YYYY');
+
     return (
         <div className='flex items-center my-3 pb-3 border-b'>
             <div className="flex justify-center items-center h-12 w-1/5 bg-slate-100 me-2 rounded p-2">
@@ -30,6 +25,8 @@ const Transaction = ({ transaction }) => {
 };
 
 export default function Transactions({ auth, transactions }) {
+    const items = transactions.data || [];
+
     return (
         <div className="bg-white fixed top-0 right-0 bottom-0 w-1/4 shadow overflow-y-auto">
             <div className="sticky top-0 bg-white shadow p-3">
@@ -74,7 +71,7 @@ export default function Transactions({ auth, transactions }) {
             </div>
 
             <div className="p-3">
-                { transactions.map((transaction, index) => {
+                { items.map((transaction, index) => {
                     return <Transaction transaction={transaction} key={index} />
                 }) }
             </div>
