@@ -9,6 +9,7 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
     const [transactions, setTransactions] = useState(trans);
     const [summary, setSummary] = useState(smry);
     const [budget, setBudget] = useState(bdgt);
+    const [categoryDetail, setCategoryDetail] = useState(null);
 
     const [dateRange, setDateRange] = useState({
         from: moment().startOf('month').format('YYYY-MM-DD'),
@@ -28,6 +29,14 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
             setData(response.data);
         });
     }
+
+    const fetchCategory = (id) => {
+        const params = {...dateRange, id};
+        axios.get(route('categories.show', params)).then((response) => {
+            console.log(response.data);
+            setCategoryDetail(response.data);
+        });
+    };
 
     const refreshDashboard = () => {
         console.log('refreshing dashboard...');
@@ -50,9 +59,13 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
                     dateRange={ dateRange }
                     summary={ summary }
                     budget={ budget }
-                    refreshDashboard={refreshDashboard} />
+                    refreshDashboard={refreshDashboard}
+                    fetchCategory={fetchCategory}
+                    categoryDetail={categoryDetail} />
 
-                <Transactions auth={auth} transactions={transactions} />
+                <Transactions
+                    auth={auth}
+                    transactions={transactions} />
             </div>
         </AuthenticatedLayout>
     );

@@ -21,6 +21,27 @@ class DashboardController extends Controller
         return Inertia::render('Dashboard/Index', $params);
     }
 
+    public function showCategory(Request $request, int $category_id)
+    {
+        $user_id = auth()->user()->id;
+        $from = $request->from . ' 00:00:00';
+        $to = $request->to . ' 23:59:59';
+
+        $category = Category::main($user_id)->find($category_id);
+
+        $transactions = $this->getTransactions($from, $to, [
+            'category_id' => $category_id,
+            'per_page' => 100,
+        ]);
+
+        $params = [
+            'category' => $category,
+            'transactions' => $transactions,
+        ];
+
+        return response()->json($params);
+    }
+
     public function updateBudgets(Request $request)
     {
         //validate request limit must be 0 or more
@@ -67,6 +88,7 @@ class DashboardController extends Controller
 
         $category->name = $request->input('name');
         $category->parent_id = $request->input('parent_id');
+        $category->user_id = auth()->user()->id;
         $category->ui = [
             'icon' => $request->input('icon'),
             'color' => $request->input('color'),
@@ -119,15 +141,30 @@ class DashboardController extends Controller
         return $categories;
     }
 
-    public function getTransactions(string $from, string $to)
+    public function getTransactions(string $from, string $to, array $params = [])
     {
         $user = auth()->user()->id;
+        $category_id = $params['category_id'] ?? null;
+        $per_page = $params['per_page'] ?? 100;
 
-        return Transaction::with('category')
+        logger([$from, $to]);
+
+        $query = Transaction::with('category')
             ->where('user_id', $user)
+            ->when($category_id, function ($query, $category_id) {
+                return $query->where(function ($query) use ($category_id) {
+                    $query->where('category_id', $category_id)
+                    ->orWhereHas('category', function ($query) use ($category_id) {
+                        $query->where('parent_id', $category_id);
+                    });
+                });
+            })
             ->whereBetween('date', [$from, $to])
-            ->orderBy('date', 'desc')
-            ->paginate(100);
+            ->orderBy('date', 'desc');
+
+        logger($query->toSql());
+
+        return $query->paginate($per_page);
     }
 
     public function getSummary(string $from, string $to)

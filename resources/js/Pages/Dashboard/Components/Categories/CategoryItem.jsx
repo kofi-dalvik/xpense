@@ -1,6 +1,6 @@
 import { TextButton } from "@/Pages/Dashboard/Components";
 
-const CategoryItem = ({ category, slim = false, parent_id, onEditClick = () => {}, onSelected = () => {} }) => {
+const CategoryItem = ({ category, slim = false, parent_id, onDetailsClick = () => {}, onSelected = () => {} }) => {
     return (
         <div
             onClick={ () => onSelected(category) }
@@ -16,7 +16,7 @@ const CategoryItem = ({ category, slim = false, parent_id, onEditClick = () => {
             }>{category.name}</div>
             { !slim && <>
                 <div className="text-base font-semibold">${category.total.toLocaleString()}</div>
-                <TextButton icon="mdi-settings" text="Configure" onClick={ onEditClick }/>
+                <TextButton icon="mdi-settings" text="Details" onClick={ onDetailsClick }/>
             </>}
         </div>
     );

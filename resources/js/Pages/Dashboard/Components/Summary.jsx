@@ -11,7 +11,7 @@ const Budget = ({budget, refreshDashboard}) => {
     const [show, setShow] = useState(false);
     const currentMonth = moment().format('MMMM');
 
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, processing, errors, reset, clearErrors } = useForm({
         limit: budget.limit,
     });
 
@@ -21,9 +21,17 @@ const Budget = ({budget, refreshDashboard}) => {
         post(route('budgets.update'), {
             onSuccess: () => {
                 setShow(false);
-                refreshDashboard();
+                reset();
+                clearErrors();
+                if (refreshDashboard) refreshDashboard();
             }
         });
+    };
+
+    const cancel = () => {
+        reset();
+        clearErrors();
+        setShow(false);
     };
 
     return (
@@ -78,6 +86,13 @@ const Budget = ({budget, refreshDashboard}) => {
                             </div>
 
                             <div className="text-right">
+                                <PrimaryButton
+                                    onClick={ cancel }
+                                    type="button"
+                                    className="me-3 bg-red-100 text-red-500 hover:bg-red-500 hover:text-white">
+                                    Cancel
+                                </PrimaryButton>
+
                                 <PrimaryButton type="submit">
                                     Save
                                 </PrimaryButton>

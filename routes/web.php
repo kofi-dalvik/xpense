@@ -22,6 +22,7 @@ Route::get('/', [HomeController::class, 'index']);
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('dashboard/data', [DashboardController::class, 'getAnalytics'])->name('dashboard.data');
+    Route::get('categories/{id}', [DashboardController::class, 'showCategory'])->name('categories.show');
 
     Route::post('budgets', [DashboardController::class, 'updateBudgets'])->name('budgets.update');
     Route::post('categories', [DashboardController::class, 'storeCategory'])->name('categories.store');
