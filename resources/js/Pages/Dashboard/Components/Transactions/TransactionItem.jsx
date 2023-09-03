@@ -1,4 +1,4 @@
-const TransactionItem = ({ transaction }) => {
+const TransactionItem = ({ currency, transaction }) => {
     const textColor = transaction.type === 'income' ? 'text-success' : 'text-red-400';
     let date = moment(transaction.date).format('MMM DD, YYYY');
 
@@ -14,7 +14,7 @@ const TransactionItem = ({ transaction }) => {
                     <div className='text-xs text-muted truncate'>{date}</div>
                 </div>
                 <div className={`w-1/3 text-sm ${textColor} font-bold truncate text-right`}>
-                    $ {transaction.amount.toLocaleString()}
+                    {currency} {transaction.amount.toLocaleString()}
                 </div>
             </div>
         </div>

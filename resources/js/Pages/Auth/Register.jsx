@@ -5,6 +5,7 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { CURRENCIES } from '@/contants';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -12,6 +13,7 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
+        currency: '',
     });
 
     useEffect(() => {
@@ -63,6 +65,25 @@ export default function Register() {
                     />
 
                     <InputError message={errors.email} className="mt-2" />
+                </div>
+
+                <div className="mt-4">
+                    <InputLabel value="Currency" />
+                    <div className="flex flex-wrap border p-1 rounded">
+                        { CURRENCIES.map((currency) => {
+                            return (
+                                <PrimaryButton type="button" key={currency.short}
+                                    onClick={() => setData('currency', currency.short)}
+                                    className={
+                                        `me-2 bg-slate-200 ` +
+                                        (currency.short === data.currency ? 'bg-purple-500 text-white' : '')
+                                    }>
+                                    <span className='truncate'>{currency.short} ({currency.icon})</span>
+                                </PrimaryButton>
+                            );
+                        }) }
+                    </div>
+                    <InputError message={errors.currency} className="mt-2" />
                 </div>
 
                 <div className="mt-4">

@@ -3,16 +3,11 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import { chunk } from "lodash";
 import CategoryItem from "./CategoryItem";
+import { COLORS, ICONS } from "@/contants";
 
 const EditCategory = ({ id, name, parent_id, color, icon, setData, errors, reset, parents }) => {
-    const colors = [ 'indigo', 'purple', 'pink', 'gray', 'danger', 'success', 'warning', 'info', 'dark' ];
-    let icons = [
-        'mdi-account', 'mdi-airplane', 'mdi-ambulance', 'mdi-food', 'mdi-baby', 'mdi-bank', 'mdi-food-apple', 'mdi-mushroom',
-        'mdi-bike', 'mdi-music-box', 'mdi-bus', 'mdi-cake', 'mdi-car', 'mdi-sofa', 'mdi-access-point-network', 'mdi-barley', 'mdi-cash-100',
-        'mdi-cash-multiple', 'mdi-cash-usd', 'mdi-certificate', 'mdi-chef-hat', 'mdi-clipboard', 'mdi-clock', 'mdi-coffee',
-        'mdi-coffee-outline', 'mdi-currency-usd', 'mdi-diamond', 'mdi-dog', 'mdi-dumbbell', 'mdi-heart-pulse', 'mdi-shopping',
-        'mdi-gift', 'mdi-gamepad-variant', 'mdi-school', 'mdi-gas-station', 'mdi-power',
-    ];
+    const colors = COLORS;
+    let icons = ICONS;
     icons = chunk(icons, icons.length / 2);
 
     const onSelected = (category) => {

@@ -2,7 +2,7 @@ import Dropdown from '@/Components/Dropdown';
 import { SectionTitle } from '@/Pages/Dashboard/Components';
 import TransactionItem from '@/Pages/Dashboard/Components/Transactions/TransactionItem';
 
-export default function Transactions({ auth, transactions }) {
+export default function Transactions({ auth, currency, transactions }) {
     const items = transactions.data || [];
 
     return (
@@ -50,7 +50,7 @@ export default function Transactions({ auth, transactions }) {
 
             <div className="p-3">
                 { items.map((transaction, index) => {
-                    return <TransactionItem transaction={transaction} key={index} />
+                    return <TransactionItem currency={currency} transaction={transaction} key={index} />
                 }) }
             </div>
         </div>

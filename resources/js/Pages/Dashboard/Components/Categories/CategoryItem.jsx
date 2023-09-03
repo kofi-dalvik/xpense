@@ -1,6 +1,6 @@
 import { TextButton } from "@/Pages/Dashboard/Components";
 
-const CategoryItem = ({ category, slim = false, parent_id, onDetailsClick = () => {}, onSelected = () => {} }) => {
+const CategoryItem = ({ currency, category, slim = false, parent_id, onDetailsClick = () => {}, onSelected = () => {} }) => {
     return (
         <div
             onClick={ () => onSelected(category) }
@@ -15,7 +15,7 @@ const CategoryItem = ({ category, slim = false, parent_id, onDetailsClick = () =
                 `text-muted ${slim ? 'text-xs' : 'text-sm'} truncate `
             }>{category.name}</div>
             { !slim && <>
-                <div className="text-base font-semibold">${category.total.toLocaleString()}</div>
+                <div className="text-base font-semibold">{currency} {category.total.toLocaleString()}</div>
                 <TextButton icon="mdi-settings" text="Details" onClick={ onDetailsClick }/>
             </>}
         </div>

@@ -7,7 +7,7 @@ import { TextButton, SectionTitle, DateRangePicker } from "@/Pages/Dashboard/Com
 import { useForm } from "@inertiajs/react";
 import { useState } from "react";
 
-const Budget = ({budget, refreshDashboard}) => {
+const Budget = ({currency, budget, refreshDashboard }) => {
     const [show, setShow] = useState(false);
     const currentMonth = moment().format('MMMM');
 
@@ -45,7 +45,7 @@ const Budget = ({budget, refreshDashboard}) => {
             <div className="p-0 w-full">
                 <div className="grid grid-cols-2 w-full">
                         <div className="text-center">
-                        <div className="m-0">$ {budget.limit.toLocaleString()}</div>
+                        <div className="m-0">{currency} {budget.limit.toLocaleString()}</div>
                         <p className="m-0 text-sm text-muted">
                             Monthly Limit <br/> <TextButton onClick={ () => setShow(true) } text="Set Limit"/>
                         </p>
@@ -53,7 +53,7 @@ const Budget = ({budget, refreshDashboard}) => {
 
                     <div className="text-center">
                         <div className={`m-0 ${budget.balance < 0 ? 'text-red-500' : 'text-success'}`}>
-                            $ { budget.balance.toLocaleString() }
+                            {currency} { budget.balance.toLocaleString() }
                         </div>
                         <p className="m-0 text-sm text-muted">
                             Amount <br/> Remaining
@@ -104,7 +104,7 @@ const Budget = ({budget, refreshDashboard}) => {
     );
 };
 
-export default function Summary({ dateRange, setDateRange, summary, budget, refreshDashboard }) {
+export default function Summary({currency, dateRange, setDateRange, summary, budget, refreshDashboard }) {
     const figures = [
         { name: 'Income', amount: summary.income, color: 'text-success', icon: 'mdi-chevron-double-up' },
         { name: 'Expense', amount: summary.expense, color: 'text-danger', icon: 'mdi-chevron-double-down' },
@@ -135,7 +135,7 @@ export default function Summary({ dateRange, setDateRange, summary, budget, refr
                                             <i className={`mdi ${figure.icon} text-xl`}></i>
                                         </div>
                                         <div className="amount">
-                                            <span className="text-sm">$</span> {figure.amount.toLocaleString()}
+                                            <span className="text-sm">{currency}</span> {figure.amount.toLocaleString()}
                                         </div>
                                         <div className="text-muted flex items-center text-sm">
                                             <span className="me-2">{figure.name}</span>
@@ -157,7 +157,10 @@ export default function Summary({ dateRange, setDateRange, summary, budget, refr
                     </div>
 
                     <div className="col-span-4">
-                        <Budget budget={budget} refreshDashboard={refreshDashboard}/>
+                        <Budget
+                            budget={budget}
+                            currency={currency}
+                            refreshDashboard={refreshDashboard}/>
                     </div>
                 </div>
             </div>

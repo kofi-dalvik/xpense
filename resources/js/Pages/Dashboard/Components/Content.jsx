@@ -2,6 +2,7 @@ import { Header, Summary, Categories } from '@/Pages/Dashboard/Components';
 
 export default function Content({
     auth,
+    currency,
     categories,
     dateRange,
     setDateRange,
@@ -21,7 +22,8 @@ export default function Content({
                     setDateRange={ setDateRange }
                     summary={ summary }
                     budget={ budget }
-                    refreshDashboard={refreshDashboard} />
+                    refreshDashboard={refreshDashboard}
+                    currency={currency} />
 
                 <div className="my-14"></div>
 
@@ -30,7 +32,8 @@ export default function Content({
                     dateRange={ dateRange }
                     refreshDashboard={refreshDashboard}
                     categoryDetail={categoryDetail}
-                    fetchCategory={fetchCategory} />
+                    fetchCategory={fetchCategory}
+                    currency={currency} />
             </div>
         </div>
     );

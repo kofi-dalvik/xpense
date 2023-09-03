@@ -5,7 +5,7 @@ import AddCategory from "./AddCategory";
 import ViewCategory from "./ViewCategory";
 
 
-export default function Categories({ dateRange, categories, refreshDashboard, fetchCategory, categoryDetail }) {
+export default function Categories({ currency, dateRange, categories, refreshDashboard, fetchCategory, categoryDetail }) {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [showAddCategory, setShowAddCategory] = useState(false);
 
@@ -40,6 +40,7 @@ export default function Categories({ dateRange, categories, refreshDashboard, fe
                 { categories.map((category, index) => {
                     return <CategoryItem
                             key={index}
+                            currency={currency}
                             category={category}
                             onDetailsClick={ (e) => onDetailsClick(category) }
                         />
@@ -62,6 +63,7 @@ export default function Categories({ dateRange, categories, refreshDashboard, fe
                 refreshDashboard={refreshDashboard}
                 categoryDetail={categoryDetail}
                 dateRange={dateRange}
+                currency={currency}
             />
         </div>
     );

@@ -4,6 +4,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
+import { CURRENCIES } from '@/contants';
 
 export default function UpdateProfileInformation({ mustVerifyEmail, status, className = '' }) {
     const user = usePage().props.auth.user;
@@ -11,6 +12,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
         name: user.name,
         email: user.email,
+        currency: user.currency,
     });
 
     const submit = (e) => {
@@ -60,6 +62,25 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                     />
 
                     <InputError className="mt-2" message={errors.email} />
+                </div>
+
+                <div className="mt-4">
+                    <InputLabel value="Currency" />
+                    <div className="flex flex-wrap border p-1 rounded">
+                        { CURRENCIES.map((currency) => {
+                            return (
+                                <PrimaryButton type="button" key={currency.short}
+                                    onClick={() => setData('currency', currency.short)}
+                                    className={
+                                        `me-2 bg-slate-200 ` +
+                                        (currency.short === data.currency ? 'bg-purple-500 text-white' : '')
+                                    }>
+                                    <span className='truncate'>{currency.short} ({currency.icon})</span>
+                                </PrimaryButton>
+                            );
+                        }) }
+                    </div>
+                    <InputError message={errors.currency} className="mt-2" />
                 </div>
 
                 {mustVerifyEmail && user.email_verified_at === null && (

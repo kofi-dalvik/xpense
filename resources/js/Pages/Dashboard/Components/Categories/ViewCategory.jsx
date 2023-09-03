@@ -5,7 +5,7 @@ import Checkbox from "@/Components/Checkbox";
 import { get } from "lodash";
 import TransactionItem from "../Transactions/TransactionItem";
 
-const ViewCategory = ({ dateRange, show, setShow, category, categoryDetail, refreshDashboard }) => {
+const ViewCategory = ({ currency, dateRange, show, setShow, category, categoryDetail, refreshDashboard }) => {
     const [keepOpened, setKeepOpened] = useState(false);
     const transactions = get(categoryDetail, 'transactions.data', []);
 
@@ -26,14 +26,14 @@ const ViewCategory = ({ dateRange, show, setShow, category, categoryDetail, refr
                 <div className="flex flex-wrap justify-between">
                     <h5>{ get(category, 'name', '') }</h5>
                     <h5>{ formatDate(dateRange.from) } to {formatDate(dateRange.to)}</h5>
-                    <h5>$ { get(category, 'total', 0).toLocaleString() }</h5>
+                    <h5>{currency} { get(category, 'total', 0).toLocaleString() }</h5>
                 </div>
             }
             onClose={() => setShow(false) }>
                 <div className="modal-content px-4">
                     { transactions.map((transaction, index) => {
                         return (
-                            <TransactionItem key={index} transaction={transaction}/>
+                            <TransactionItem currency={currency} key={index} transaction={transaction}/>
                         );
                     }) }
 

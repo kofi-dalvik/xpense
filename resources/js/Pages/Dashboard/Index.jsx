@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Content, Transactions } from '@/Pages/Dashboard/Components';
+import { CURRENCY_SYMBOLS } from '@/contants';
 
 export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
     const [loading, setLoading] = useState(false);
@@ -10,6 +11,8 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
     const [summary, setSummary] = useState(smry);
     const [budget, setBudget] = useState(bdgt);
     const [categoryDetail, setCategoryDetail] = useState(null);
+
+    const currency = CURRENCY_SYMBOLS[auth.user.currency];
 
     const [dateRange, setDateRange] = useState({
         from: moment().startOf('month').format('YYYY-MM-DD'),
@@ -61,11 +64,13 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
                     budget={ budget }
                     refreshDashboard={refreshDashboard}
                     fetchCategory={fetchCategory}
-                    categoryDetail={categoryDetail} />
+                    categoryDetail={categoryDetail}
+                    currency={currency} />
 
                 <Transactions
                     auth={auth}
-                    transactions={transactions} />
+                    transactions={transactions}
+                    currency={currency} />
             </div>
         </AuthenticatedLayout>
     );
