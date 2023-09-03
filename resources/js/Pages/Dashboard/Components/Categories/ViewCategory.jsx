@@ -23,8 +23,9 @@ const ViewCategory = ({ dateRange, show, setShow, category, categoryDetail, refr
             show={show}
             maxWidth="xl"
             title={
-                <div className="flex justify-between">
+                <div className="flex flex-wrap justify-between">
                     <h5>{ get(category, 'name', '') }</h5>
+                    <h5>{ formatDate(dateRange.from) } to {formatDate(dateRange.to)}</h5>
                     <h5>$ { get(category, 'total', 0).toLocaleString() }</h5>
                 </div>
             }
