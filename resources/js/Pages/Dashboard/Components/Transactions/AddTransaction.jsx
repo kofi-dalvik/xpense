@@ -14,7 +14,13 @@ const AddTransaction = ({ categories, show, setShow, onChange, refreshDashboard 
         amount: '',
         category_id: '',
         sub_category_id: '',
+
         recurring: false,
+        recur_type: 'monthly',
+        recur_interval: 1,
+        recur_start_date: '',
+        recur_end_date: '',
+
         description: '',
     });
 
@@ -32,6 +38,8 @@ const AddTransaction = ({ categories, show, setShow, onChange, refreshDashboard 
                 }
 
                 if (refreshDashboard) refreshDashboard();
+            },
+            onError: () => {
             }
         });
     };
@@ -46,7 +54,7 @@ const AddTransaction = ({ categories, show, setShow, onChange, refreshDashboard 
     return (
         <Modal
             show={show}
-            maxWidth="md"
+            maxWidth="lg"
             title={`New Transaction`}
             onClose={() => setShow(false) }>
                 <div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Budget;
 use App\Models\Category;
+use App\Models\RecurringTransaction;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -102,7 +103,7 @@ class DashboardController extends Controller
 
     public function storeTranx(Request $request)
     {
-        $request->validate([
+        $rules = [
             'type' => 'required|in:' . implode(',', Transaction::TYPES),
             'recurring' => 'required|boolean',
             'date' => 'required|date',
@@ -110,7 +111,16 @@ class DashboardController extends Controller
             'category_id' => 'required|exists:categories,id',
             'sub_category_id' => 'nullable|exists:categories,id',
             'description' => 'required|string|max:255',
-        ]);
+        ];
+
+        if ($request->recurring) {
+            $rules['recur_type'] = 'required|in:' . implode(',', Transaction::RECUR_TYPES);
+            $rules['recur_interval'] = 'required|numeric|min:1';
+            $rules['recur_start_date'] = 'required|date';
+            $rules['recur_end_date'] = 'nullable|date';
+        }
+
+        $request->validate($rules);
 
         $category_id = $request->input('sub_category_id') ?? $request->input('category_id');
 
@@ -122,6 +132,17 @@ class DashboardController extends Controller
         $tranx->amount = $request->input('amount');
         $tranx->description = $request->input('description');
         $tranx->save();
+
+        if ($request->recurring) {
+            RecurringTransaction::create([
+                'user_id' => $tranx->user_id,
+                'transaction_id' => $tranx->id,
+                'type' => $request->input('recur_type'),
+                'interval' => $request->input('recur_interval'),
+                'start_date' => $request->input('recur_start_date'),
+                'end_date' => $request->input('recur_end_date'),
+            ]);
+        }
 
         return redirect()->back()->with([
             'message' => 'Transaction created successfully'

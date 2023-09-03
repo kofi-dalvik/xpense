@@ -13,6 +13,18 @@ class Transaction extends Model
     public const INCOME = 'income';
     public const TYPES = [self::EXPENSE, self::INCOME];
 
+    public const DAILY = 'daily';
+    public const WEEKLY = 'weekly';
+    public const MONTHLY = 'monthly';
+    public const YEARLY = 'yearly';
+
+    public const RECUR_TYPES = [
+        self::DAILY,
+        self::WEEKLY,
+        self::MONTHLY,
+        self::YEARLY,
+    ];
+
     protected $guarded = [];
 
     public function category()
