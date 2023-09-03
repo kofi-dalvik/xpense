@@ -19,4 +19,14 @@ class Transaction extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function scopeWhereCategory($query, $category_id)
+    {
+        return $query->where(function ($query) use ($category_id) {
+            $query->where('category_id', $category_id)
+                ->orWhereHas('category', function ($query) use ($category_id) {
+                    $query->where('parent_id', $category_id);
+                });
+        });
+    }
 }

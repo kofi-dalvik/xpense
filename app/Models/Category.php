@@ -20,6 +20,11 @@ class Category extends Model
         return $this->hasMany(Transaction::class);
     }
 
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
     public function scopeMain($query, $user_id)
     {
         return $query->whereNull('parent_id')

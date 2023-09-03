@@ -26,6 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('budgets', [DashboardController::class, 'updateBudgets'])->name('budgets.update');
     Route::post('categories', [DashboardController::class, 'storeCategory'])->name('categories.store');
+    Route::post('transactions', [DashboardController::class, 'storeTranx'])->name('transactions.store');
 });
 
 Route::middleware('auth')->group(function () {

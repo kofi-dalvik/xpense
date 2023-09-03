@@ -70,7 +70,9 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
                 <Transactions
                     auth={auth}
                     transactions={transactions}
-                    currency={currency} />
+                    currency={currency}
+                    refreshDashboard={refreshDashboard}
+                    categories={categories} />
             </div>
         </AuthenticatedLayout>
     );

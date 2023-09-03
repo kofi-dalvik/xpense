@@ -100,6 +100,34 @@ class DashboardController extends Controller
         ]);
     }
 
+    public function storeTranx(Request $request)
+    {
+        $request->validate([
+            'type' => 'required|in:' . implode(',', Transaction::TYPES),
+            'recurring' => 'required|boolean',
+            'date' => 'required|date',
+            'amount' => 'required|numeric|min:0',
+            'category_id' => 'required|exists:categories,id',
+            'sub_category_id' => 'nullable|exists:categories,id',
+            'description' => 'nullable|string|max:255',
+        ]);
+
+        $category_id = $request->input('sub_category_id') ?? $request->input('category_id');
+
+        $tranx = new Transaction();
+        $tranx->type = $request->input('type');
+        $tranx->user_id = auth()->user()->id;
+        $tranx->category_id = $category_id;
+        $tranx->date = $request->input('date');
+        $tranx->amount = $request->input('amount');
+        $tranx->description = $request->input('description');
+        $tranx->save();
+
+        return redirect()->back()->with([
+            'message' => 'Transaction created successfully'
+        ]);
+    }
+
     public function getAnalytics(Request $request)
     {
         $from = $request->input('from') . ' 00:00:00';
@@ -124,11 +152,11 @@ class DashboardController extends Controller
     {
         $user_id = auth()->user()->id;
 
-        $categories = Category::main($user_id)->get();
+        $categories = Category::with('children:id,name,parent_id,ui')->main($user_id)->get();
 
         $categories = $categories->map(function ($category) use ($from, $to, $user_id) {
             $category->total = Transaction::where('user_id', $user_id)
-                        ->where('category_id', $category->id)
+                        ->whereCategory($category->id)
                         ->whereBetween('date', [$from, $to])
                         ->sum('amount');
 
@@ -147,22 +175,13 @@ class DashboardController extends Controller
         $category_id = $params['category_id'] ?? null;
         $per_page = $params['per_page'] ?? 100;
 
-        logger([$from, $to]);
-
         $query = Transaction::with('category')
             ->where('user_id', $user)
             ->when($category_id, function ($query, $category_id) {
-                return $query->where(function ($query) use ($category_id) {
-                    $query->where('category_id', $category_id)
-                    ->orWhereHas('category', function ($query) use ($category_id) {
-                        $query->where('parent_id', $category_id);
-                    });
-                });
+                $query->whereCategory($category_id);
             })
             ->whereBetween('date', [$from, $to])
             ->orderBy('date', 'desc');
-
-        logger($query->toSql());
 
         return $query->paginate($per_page);
     }
@@ -201,7 +220,7 @@ class DashboardController extends Controller
                     ->where('month', now()->format('m-Y'))
                     ->first();
 
-        $limit = $budget ? $budget->limit : 1000;
+        $limit = $budget ? $budget->limit : 0;
 
         $spend = Transaction::where('user_id', $user_id)
             ->whereBetween('date', [$from, $to])

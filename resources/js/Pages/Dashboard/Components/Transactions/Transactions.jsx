@@ -1,8 +1,12 @@
 import Dropdown from '@/Components/Dropdown';
 import { SectionTitle } from '@/Pages/Dashboard/Components';
 import TransactionItem from '@/Pages/Dashboard/Components/Transactions/TransactionItem';
+import AddTransaction from './AddTransaction';
+import { useState } from 'react';
 
-export default function Transactions({ auth, currency, transactions }) {
+export default function Transactions({ auth, categories, currency, transactions, refreshDashboard }) {
+    const [showAddTrans, setShowAddTrans] = useState(false);
+
     const items = transactions.data || [];
 
     return (
@@ -40,7 +44,7 @@ export default function Transactions({ auth, currency, transactions }) {
                     title="Transactions"
                     subtitle="Manage your categories">
                         <div className="text-end">
-                            <button className='btn bg-white shadow text-sm'>
+                            <button onClick={ () => setShowAddTrans(true) } className='btn bg-white shadow text-sm'>
                                 <i className='mdi mdi-plus me-1'></i>
                                 Add
                             </button>
@@ -53,6 +57,14 @@ export default function Transactions({ auth, currency, transactions }) {
                     return <TransactionItem currency={currency} transaction={transaction} key={index} />
                 }) }
             </div>
+
+            <AddTransaction
+                show={ showAddTrans }
+                setShow={ setShowAddTrans }
+                onClose={ () => setShowAddTrans(false) }
+                refreshDashboard={ refreshDashboard }
+                categories={ categories }
+            />
         </div>
     );
 }
