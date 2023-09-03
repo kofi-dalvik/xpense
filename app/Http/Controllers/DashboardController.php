@@ -21,6 +21,33 @@ class DashboardController extends Controller
         return Inertia::render('Dashboard/Index', $params);
     }
 
+    public function updateBudgets(Request $request)
+    {
+        //validate request limit must be 0 or more
+        $request->validate([
+            'limit' => 'required|numeric|min:0',
+        ]);
+
+        $user_id = auth()->user()->id;
+
+        $budget = Budget::where('user_id', $user_id)
+                ->where('month', now()->format('m-Y'))
+                ->first();
+
+        if (!$budget) {
+            $budget = new Budget();
+            $budget->user_id = $user_id;
+            $budget->month = now()->format('m-Y');
+        }
+
+        $budget->limit = $request->input('limit');
+        $budget->save();
+
+        return redirect()->back()->with([
+            'message' => 'Budget updated successfully'
+        ]);
+    }
+
     public function getAnalytics(Request $request)
     {
         $from = $request->input('from') . ' 00:00:00';
@@ -107,15 +134,15 @@ class DashboardController extends Controller
         $from = now()->startOf('month')->format('Y-m-d') . ' 00:00:00';
         $to = now()->endOf('month')->format('Y-m-d') . ' 23:59:59';
 
-        $user = auth()->user()->id;
+        $user_id = auth()->user()->id;
 
-        $budget = Budget::where('user_id', $user)
+        $budget = Budget::where('user_id', $user_id)
                     ->where('month', now()->format('m-Y'))
                     ->first();
-                    
+
         $limit = $budget ? $budget->limit : 1000;
 
-        $spend = Transaction::where('user_id', $user)
+        $spend = Transaction::where('user_id', $user_id)
             ->whereBetween('date', [$from, $to])
             ->where('type', Transaction::EXPENSE)
             ->sum('amount');

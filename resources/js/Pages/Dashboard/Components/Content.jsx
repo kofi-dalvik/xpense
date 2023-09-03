@@ -1,6 +1,14 @@
 import { Header, Summary, Categories } from '@/Pages/Dashboard/Components';
 
-export default function Content({ auth, categories, dateRange, setDateRange, summary, budget }) {
+export default function Content({
+    auth,
+    categories,
+    dateRange,
+    setDateRange,
+    summary,
+    budget,
+    refreshDashboard
+}) {
     return (
         <div className="x-dashboard-c">
             <Header />
@@ -10,7 +18,8 @@ export default function Content({ auth, categories, dateRange, setDateRange, sum
                     dateRange={ dateRange }
                     setDateRange={ setDateRange }
                     summary={ summary }
-                    budget={ budget } />
+                    budget={ budget }
+                    refreshDashboard={refreshDashboard} />
 
                 <div className="my-14"></div>
 

@@ -9,6 +9,7 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
     const [transactions, setTransactions] = useState(trans);
     const [summary, setSummary] = useState(smry);
     const [budget, setBudget] = useState(bdgt);
+    const [key, setKey] = useState(0);
 
     const [dateRange, setDateRange] = useState({
         from: moment().startOf('month').format('YYYY-MM-DD'),
@@ -28,12 +29,17 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
         });
     }
 
+    const refreshDashboard = () => {
+        console.log('refreshing dashboard...');
+        fetchData();
+    };
+
     useEffect(() => {
         fetchData();
     }, [dateRange]);
 
     return (
-        <AuthenticatedLayout hideAll={true}>
+        <AuthenticatedLayout key={key} hideAll={true}>
             <Head title="Dashboard" />
 
             <div className="x-dashboard px-20">
@@ -43,7 +49,8 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
                     setDateRange={ setDateRange }
                     dateRange={ dateRange }
                     summary={ summary }
-                    budget={ budget } />
+                    budget={ budget }
+                    refreshDashboard={refreshDashboard} />
 
                 <Transactions auth={auth} transactions={transactions} />
             </div>

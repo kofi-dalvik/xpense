@@ -1,6 +1,31 @@
+import InputError from "@/Components/InputError";
+import InputLabel from "@/Components/InputLabel";
+import Modal from "@/Components/Modal";
+import PrimaryButton from "@/Components/PrimaryButton";
+import TextInput from "@/Components/TextInput";
 import { TextButton, SectionTitle, DateRangePicker } from "@/Pages/Dashboard/Components";
+import { useForm } from "@inertiajs/react";
+import { useState } from "react";
 
-const Budget = ({budget}) => {
+const Budget = ({budget, refreshDashboard}) => {
+    const [show, setShow] = useState(false);
+    const currentMonth = moment().format('MMMM');
+
+    const { data, setData, post, processing, errors, reset } = useForm({
+        limit: budget.limit,
+    });
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        post(route('budgets.update'), {
+            onSuccess: () => {
+                setShow(false);
+                refreshDashboard();
+            }
+        });
+    };
+
     return (
         <div className="budget flex flex-col ps-2 pe-2">
             <h5>Budget</h5>
@@ -14,7 +39,7 @@ const Budget = ({budget}) => {
                         <div className="text-center">
                         <div className="m-0">$ {budget.limit.toLocaleString()}</div>
                         <p className="m-0 text-sm text-muted">
-                            Monthly Limit <br/> <TextButton text="Set Limit"/>
+                            Monthly Limit <br/> <TextButton onClick={ () => setShow(true) } text="Set Limit"/>
                         </p>
                     </div>
 
@@ -28,11 +53,43 @@ const Budget = ({budget}) => {
                     </div>
                 </div>
             </div>
+
+            <Modal
+                show={show}
+                maxWidth="sm"
+                title={`Set Monthly Limit`}
+                onClose={() => setShow(false) }>
+                    <div className="">
+                        <form className="" onSubmit={submit}>
+                            <div className="form-group mb-5">
+                                <InputLabel value={`Limit for ${currentMonth}`} />
+
+                                <TextInput
+                                    id="limit"
+                                    type="number"
+                                    name="limit"
+                                    value={data.limit}
+                                    className="mt-1 block w-full"
+                                    isFocused={true}
+                                    onChange={(e) => setData('limit', e.target.value)}
+                                />
+
+                                <InputError message={errors.limit} className="mt-2" />
+                            </div>
+
+                            <div className="text-right">
+                                <PrimaryButton type="submit">
+                                    Save
+                                </PrimaryButton>
+                            </div>
+                        </form>
+                    </div>
+            </Modal>
         </div>
     );
 };
 
-export default function Summary({ dateRange, setDateRange, summary, budget }) {
+export default function Summary({ dateRange, setDateRange, summary, budget, refreshDashboard }) {
     const figures = [
         { name: 'Income', amount: summary.income, color: 'text-success', icon: 'mdi-chevron-double-up' },
         { name: 'Expense', amount: summary.expense, color: 'text-danger', icon: 'mdi-chevron-double-down' },
@@ -85,7 +142,7 @@ export default function Summary({ dateRange, setDateRange, summary, budget }) {
                     </div>
 
                     <div className="col-span-4">
-                        <Budget budget={budget}/>
+                        <Budget budget={budget} refreshDashboard={refreshDashboard}/>
                     </div>
                 </div>
             </div>
