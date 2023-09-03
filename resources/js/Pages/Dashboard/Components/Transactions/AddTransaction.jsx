@@ -18,8 +18,6 @@ const AddTransaction = ({ categories, show, setShow, onChange, refreshDashboard 
         description: '',
     });
 
-    console.log(data);
-
     const submit = (e) => {
         e.preventDefault();
 

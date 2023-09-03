@@ -20,7 +20,6 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
     });
 
     const setData = (data) => {
-        console.log(data);
         setCategories(curr => data.cats);
         setTransactions(curr => data.trans)
         setSummary(curr => data.smry);
@@ -36,13 +35,11 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
     const fetchCategory = (id) => {
         const params = {...dateRange, id};
         axios.get(route('categories.show', params)).then((response) => {
-            console.log(response.data);
             setCategoryDetail(response.data);
         });
     };
 
     const refreshDashboard = () => {
-        console.log('refreshing dashboard...');
         fetchData();
     };
 
