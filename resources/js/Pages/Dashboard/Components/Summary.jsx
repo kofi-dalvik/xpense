@@ -4,6 +4,8 @@ import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { TextButton, SectionTitle, DateRangePicker } from "@/Pages/Dashboard/Components";
+import { EVENT_ADD_TRNX } from "@/contants";
+import { publish } from "@/events";
 import { useForm } from "@inertiajs/react";
 import { useState } from "react";
 
@@ -113,6 +115,10 @@ export default function Summary({currency, dateRange, setDateRange, summary, bud
 
     const secTitle = `Analytics from ${moment(dateRange.from).format('MMM DD')} to ${moment(dateRange.to).format('MMM DD')}`;
 
+    const addTransaction = (type) => {
+        publish(EVENT_ADD_TRNX, { type });
+    };
+
     return (
         <>
             <SectionTitle
@@ -142,6 +148,7 @@ export default function Summary({currency, dateRange, setDateRange, summary, bud
                                             { !figure.hideMore && (
                                                 <TextButton
                                                     text="Add"
+                                                    onClick={ e => addTransaction(figure.name.toLowerCase()) }
                                                     title={`Configure ${figure.name}`}
                                                     />
                                             ) }

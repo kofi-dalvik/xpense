@@ -1,3 +1,5 @@
+export const EVENT_ADD_TRNX = 'addTrnx';
+
 export const CURRENCIES = [
     { name: 'British Pounds', short: 'GBP', icon: '£' },
     { name: 'Euro', short: 'EUR', icon: '€' },

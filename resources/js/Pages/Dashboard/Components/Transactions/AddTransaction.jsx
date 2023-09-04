@@ -1,11 +1,11 @@
 import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { useForm } from "@inertiajs/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Checkbox from "@/Components/Checkbox";
 import AddTransactionForm from "./AddTransactionForm";
 
-const AddTransaction = ({ categories, show, setShow, onChange, refreshDashboard }) => {
+const AddTransaction = ({ defaultType, categories, show, setShow, onChange, refreshDashboard }) => {
     const [keepOpened, setKeepOpened] = useState(false);
 
     const { data, setData, post, processing, errors, clearErrors, reset } = useForm({
@@ -23,6 +23,10 @@ const AddTransaction = ({ categories, show, setShow, onChange, refreshDashboard 
 
         description: '',
     });
+
+    useEffect(() => {
+        setData('type', defaultType);
+    }, [defaultType]);
 
     const submit = (e) => {
         e.preventDefault();

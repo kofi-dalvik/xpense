@@ -2,12 +2,26 @@ import Dropdown from '@/Components/Dropdown';
 import { SectionTitle } from '@/Pages/Dashboard/Components';
 import TransactionItem from '@/Pages/Dashboard/Components/Transactions/TransactionItem';
 import AddTransaction from './AddTransaction';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { subscribe, unsubscribe } from '@/events';
+import { EVENT_ADD_TRNX } from '@/contants';
 
 export default function Transactions({ auth, categories, currency, transactions, refreshDashboard }) {
     const [showAddTrans, setShowAddTrans] = useState(false);
+    const [defaultType, setDefaultType] = useState();
 
     const items = transactions.data || [];
+
+    useEffect(() => {
+        subscribe(EVENT_ADD_TRNX, (params) => {
+            setDefaultType(params.detail.type);
+            setShowAddTrans(true);
+        });
+
+        return () => {
+            unsubscribe(EVENT_ADD_TRNX);
+        };
+    }, []);
 
     return (
         <div className="bg-white fixed top-0 right-0 bottom-0 w-1/4 shadow overflow-y-auto">
@@ -64,6 +78,7 @@ export default function Transactions({ auth, categories, currency, transactions,
                 onClose={ () => setShowAddTrans(false) }
                 refreshDashboard={ refreshDashboard }
                 categories={ categories }
+                defaultType={defaultType}
             />
         </div>
     );
