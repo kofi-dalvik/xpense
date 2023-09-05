@@ -10,7 +10,9 @@ export default function Content({
     budget,
     refreshDashboard,
     fetchCategory,
-    categoryDetail
+    categoryDetail,
+    chartData,
+    onChartClick,
 }) {
     return (
         <div className="x-dashboard-c">
@@ -24,7 +26,9 @@ export default function Content({
                     categories={categories}
                     budget={ budget }
                     refreshDashboard={refreshDashboard}
-                    currency={currency} />
+                    currency={currency}
+                    chartData={chartData}
+                    onChartClick={onChartClick} />
 
                 <div className="my-14"></div>
 

@@ -6,3 +6,5 @@ export { default as Summary } from '@/Pages/Dashboard/Components/Summary';
 export { default as TextButton } from '@/Pages/Dashboard/Components/TextButton';
 export { default as Transactions } from '@/Pages/Dashboard/Components/Transactions/Transactions';
 export { default as DateRangePicker } from '@/Pages/Dashboard/Components/DateRangePicker';
+export { default as Chart } from '@/Pages/Dashboard/Components/Chart';
+export { default as Budget } from '@/Pages/Dashboard/Components/Budget';

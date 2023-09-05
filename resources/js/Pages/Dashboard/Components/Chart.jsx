@@ -1,40 +1,52 @@
 import { createChart } from '@/libs/chart';
+import { get } from 'lodash';
 import { useEffect, useRef } from 'react';
 
-export default function Chart({ currency, categories }) {
+export default function Chart({ chartData, onChartClick }) {
     const ref = useRef(null);
 
-    let chart = null;
-
-    const values = [];
-    const labels = [];
-    const dataLabels = [];
-
-    for (const category of categories) {
-        values.push(category.total);
-        labels.push(category.name);
-        dataLabels.push(currency + '' + category.total.toLocaleString());
-    }
-
-    const options = {
-        onClick: (params) => {
-            console.log(params);
-        },
-    };
-
     useEffect(() => {
-        const data = { labels, values, dataLabels };
+        const chart = createChart(ref.current, chartData, {
+            onClick: (params) => {
+                if (onChartClick) {
+                    const category = get(chartData.categories, params.index);
 
-        chart = createChart(ref.current, data, options);
+                    if (category && category.children && category.children.length > 0) {
+                        onChartClick(category);
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        // Include a dollar sign in the ticks
+                        callback: function(value, index, ticks) {
+                            return get(chartData, 'currency', '$') + value;
+                        }
+                    }
+                }
+            }
+        });
 
         return () => {
             chart.destroy();
         }
-    }, [categories]);
+    }, [ chartData ]);
 
     return (
-        <div className='chart-container flex justify-center h-72'>
-            <canvas ref={ref}></canvas>
-        </div>
+        <>
+            { chartData.parent && (
+                <div className='mb-2'>
+                    <button className="text-primary underline" type='button' onClick={ e => onChartClick(-1) }>Main Categories</button>
+                    <span className="ms-1 me-1">/</span>
+                    <button className="text-muted" type='button'>{ chartData.parent }</button>
+                </div>
+            ) }
+
+            <div className='chart-container flex justify-center h-72'>
+                <canvas ref={ref}></canvas>
+            </div>
+        </>
     );
 }

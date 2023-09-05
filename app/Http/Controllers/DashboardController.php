@@ -43,6 +43,18 @@ class DashboardController extends Controller
         return response()->json($params);
     }
 
+    public function getSubCategories(Request $request, int $category_id)
+    {
+        logger($request->all());
+        logger($category_id);
+
+        $categories = $this->getCategories(
+            $request->from, $request->to, $category_id
+        );
+
+        return response()->json($categories);
+    }
+
     public function updateBudgets(Request $request)
     {
         //validate request limit must be 0 or more
@@ -171,11 +183,25 @@ class DashboardController extends Controller
         ];
     }
 
-    public function getCategories(string $from, string $to)
+    public function getCategories(string $from, string $to, int $category_id = null)
     {
         $user_id = auth()->user()->id;
 
-        $categories = Category::with('children:id,name,parent_id,ui')->main($user_id)->get();
+        $query = Category::with('children:id,name,parent_id,ui');
+
+        logger('category_id: ' . $category_id);
+
+        if ($category_id) {
+            $query->main($user_id, $category_id);
+        } else {
+            $query->main($user_id);
+        }
+
+        logger($query->toSql());
+
+        $categories = $query->get();
+
+        logger($categories);
 
         $categories = $categories->map(function ($category) use ($from, $to, $user_id) {
             $category->total = Transaction::where('user_id', $user_id)

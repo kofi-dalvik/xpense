@@ -23,6 +23,7 @@ export const createChart = (canvas, data, options) => {
             }]
         },
         options: {
+            ...options,
             responsive: true,
             plugins: {
                 legend: {
@@ -44,7 +45,7 @@ export const createChart = (canvas, data, options) => {
                 if (item && onClick) {
                     onClick(item);
                 }
-            }
+            },
         }
     });
 

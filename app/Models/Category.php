@@ -25,12 +25,17 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id');
     }
 
-    public function scopeMain($query, $user_id)
+    public function scopeMain($query, $user_id, $parent_id = null)
     {
-        return $query->whereNull('parent_id')
-            ->where(function ($query) use ($user_id) {
-                $query->where('user_id', $user_id)
-                    ->orWhereNull('user_id');
-            });
+        if ($parent_id) {
+            $query->where('parent_id', $parent_id);
+        } else {
+            $query->whereNull('parent_id');
+        }
+
+        return $query->where(function ($query) use ($user_id) {
+            $query->where('user_id', $user_id)
+                ->orWhereNull('user_id');
+        });
     }
 }

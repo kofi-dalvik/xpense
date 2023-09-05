@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Content, Transactions } from '@/Pages/Dashboard/Components';
 import { CURRENCY_SYMBOLS } from '@/constants';
+import { first } from 'lodash';
 
 export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
     const [loading, setLoading] = useState(false);
@@ -14,8 +15,10 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
 
     const [chartData, setChartData] = useState({
         type: 'bar',
+        categories: [],
+        values: [],
         labels: [],
-        datasets: []
+        dataLabels: []
     });
 
     const currency = CURRENCY_SYMBOLS[auth.user.currency];
@@ -30,6 +33,7 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
         setTransactions(curr => data.trans)
         setSummary(curr => data.smry);
         setBudget(curr => data.bdgt);
+
     };
 
     const fetchData = () => {
@@ -49,9 +53,48 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
         fetchData();
     };
 
+    const parseChartData = (cats, parent) => {
+        const data = { categories: [], values: [], labels: [], dataLabels: [] };
+
+        for (let cat of cats) {
+            data.values.push(cat.total);
+            data.labels.push(cat.name);
+            data.dataLabels.push(currency + '' + cat.total.toLocaleString());
+            data.categories.push(cat);
+        }
+
+        if (parent) {
+            data.parent = parent.name;
+            data.values.push(parent.total);
+            data.labels.push(`Others`);
+            data.dataLabels.push(currency + '' + parent.total.toLocaleString());
+        }
+
+        setChartData({...data, currency});
+    };
+
+    const onChartClick = (category) => {
+        if (category === -1) {
+            parseChartData(categories);
+            return;
+        }
+
+        if (category) {
+            axios.get(route('categories.subcats', {...dateRange, id: category.id})).then((response) => {
+                if (response.data.length) {
+                    parseChartData(response.data, category);
+                }
+            });
+        }
+    };
+
     useEffect(() => {
         fetchData();
     }, [dateRange]);
+
+    useEffect(() => {
+        parseChartData(categories);
+    }, [categories]);
 
     return (
         <AuthenticatedLayout hideAll={true}>
@@ -68,7 +111,9 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
                     refreshDashboard={refreshDashboard}
                     fetchCategory={fetchCategory}
                     categoryDetail={categoryDetail}
-                    currency={currency} />
+                    currency={currency}
+                    chartData={chartData}
+                    onChartClick={onChartClick} />
 
                 <Transactions
                     auth={auth}
