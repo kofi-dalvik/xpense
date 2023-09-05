@@ -121,7 +121,7 @@ const AddTransactionForm = ({
                                 onClick={() => setData('type', item.id)}
                                 className={
                                     `me-2 bg-slate-200 ` +
-                                    (item.id === type ? 'bg-purple-500 text-white' : '')
+                                    (item.id === type ? 'bg-purple-600 text-white' : '')
                                 }>
                                 <span className='truncate'>{item.name}</span>
                             </PrimaryButton>

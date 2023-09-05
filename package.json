@@ -20,6 +20,8 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "chart.js": "^4.4.0",
+        "chartjs-plugin-datalabels": "^2.2.0",
         "lodash": "^4.17.21"
     }
 }

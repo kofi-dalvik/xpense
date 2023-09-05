@@ -3,7 +3,7 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import { chunk } from "lodash";
 import CategoryItem from "./CategoryItem";
-import { COLORS, ICONS } from "@/contants";
+import { COLORS, ICONS } from "@/constants";
 import Checkbox from "@/Components/Checkbox";
 
 const EditCategory = ({ id, name, parent_id, color, icon, is_income, setData, errors, reset, parents }) => {

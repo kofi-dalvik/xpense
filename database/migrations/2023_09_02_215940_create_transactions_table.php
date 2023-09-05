@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('category_id')->constrained();
             $table->string('description');
-            $table->dateTime('date')->default(now());
+            $table->dateTime('date');
             $table->double('amount');
             $table->string('type');
             $table->timestamps();

@@ -4,12 +4,15 @@ import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { TextButton, SectionTitle, DateRangePicker } from "@/Pages/Dashboard/Components";
-import { EVENT_ADD_TRNX } from "@/contants";
-import { publish } from "@/events";
+import { EVENT_ADD_TRNX } from "@/constants";
+import { publish } from "@/libs/events";
 import { useForm } from "@inertiajs/react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Chart from "./Chart";
+import { createChart } from "@/libs/chart";
 
-const Budget = ({currency, budget, refreshDashboard }) => {
+const Budget = ({currency, dateRange, budget, refreshDashboard }) => {
+    const ref = useRef(null);
     const [show, setShow] = useState(false);
     const currentMonth = moment().format('MMMM');
 
@@ -36,12 +39,34 @@ const Budget = ({currency, budget, refreshDashboard }) => {
         setShow(false);
     };
 
+    useEffect(() => {
+        const labels = ['Spent', 'Remaining'];
+        const data = {
+            type: 'pie',
+            labels: labels,
+            values: [budget.spend, budget.balance > 0 ? budget.balance : 0],
+            dataLabels: labels
+        };
+
+        const chart = createChart(ref.current, data);
+
+        return () => {
+            chart.destroy();
+        }
+    }, [budget]);
+
+
     return (
         <div className="budget flex flex-col ps-2 pe-2">
-            <h5>Budget</h5>
+            <h5 className="text-xl text-primary">Budget</h5>
+            <p className="text-muted mt-2">
+                from { moment(dateRange.from).startOf('month').format('D/MMM/Y') } to { moment(dateRange.to).endOf('month').format('D/MMM/Y') }
+                </p>
 
-            <div className="grow-1 w-full bg-slate-100 rounded my-2">
-                a
+            <div className="grow-1 w-full h-full flex items-center justify-center rounded my-2">
+                <div className="h-56">
+                    <canvas ref={ref}></canvas>
+                </div>
             </div>
 
             <div className="p-0 w-full">
@@ -106,7 +131,7 @@ const Budget = ({currency, budget, refreshDashboard }) => {
     );
 };
 
-export default function Summary({currency, dateRange, setDateRange, summary, budget, refreshDashboard }) {
+export default function Summary({currency, categories, dateRange, setDateRange, summary, budget, refreshDashboard }) {
     const figures = [
         { name: 'Income', amount: summary.income, color: 'text-success', icon: 'mdi-chevron-double-up' },
         { name: 'Expense', amount: summary.expense, color: 'text-danger', icon: 'mdi-chevron-double-down' },
@@ -158,8 +183,8 @@ export default function Summary({currency, dateRange, setDateRange, summary, bud
                             }) }
                         </div>
 
-                        <div className="mt-3 p-5 bg-slate-100 rounded">
-                            chart
+                        <div className="mt-3 p-5">
+                            <Chart currency={currency} categories={categories}/>
                         </div>
                     </div>
 
@@ -167,6 +192,7 @@ export default function Summary({currency, dateRange, setDateRange, summary, bud
                         <Budget
                             budget={budget}
                             currency={currency}
+                            dateRange={dateRange}
                             refreshDashboard={refreshDashboard}/>
                     </div>
                 </div>

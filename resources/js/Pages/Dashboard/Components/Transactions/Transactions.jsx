@@ -3,8 +3,8 @@ import { SectionTitle } from '@/Pages/Dashboard/Components';
 import TransactionItem from '@/Pages/Dashboard/Components/Transactions/TransactionItem';
 import AddTransaction from './AddTransaction';
 import { useEffect, useState } from 'react';
-import { subscribe, unsubscribe } from '@/events';
-import { EVENT_ADD_TRNX } from '@/contants';
+import { subscribe, unsubscribe } from '@/libs/events';
+import { EVENT_ADD_TRNX } from '@/constants';
 
 export default function Transactions({ auth, categories, currency, transactions, refreshDashboard }) {
     const [showAddTrans, setShowAddTrans] = useState(false);

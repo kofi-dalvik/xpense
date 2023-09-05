@@ -21,6 +21,7 @@ export default function Content({
                     dateRange={ dateRange }
                     setDateRange={ setDateRange }
                     summary={ summary }
+                    categories={categories}
                     budget={ budget }
                     refreshDashboard={refreshDashboard}
                     currency={currency} />

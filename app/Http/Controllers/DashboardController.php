@@ -167,7 +167,7 @@ class DashboardController extends Controller
             'cats' => $this->getCategories($from, $to),
             'trans' => $this->getTransactions($from, $to),
             'smry' => $this->getSummary($from, $to),
-            'bdgt' => $this->getBudget(),
+            'bdgt' => $this->getBudget($from, $to),
         ];
     }
 
@@ -232,18 +232,23 @@ class DashboardController extends Controller
         return $data;
     }
 
-    public function getBudget()
+    public function getBudget(string $from, string $to)
     {
-        $from = now()->startOf('month')->format('Y-m-d') . ' 00:00:00';
-        $to = now()->endOf('month')->format('Y-m-d') . ' 23:59:59';
+        //get months between $from and $to inclusive in format m-Y
+        $months = [];
+        $start = now()->parse($from);
+        $end = now()->parse($to);
+
+        while ($start->lte($end)) {
+            $months[] = $start->format('m-Y');
+            $start->addMonth();
+        }
 
         $user_id = auth()->user()->id;
 
-        $budget = Budget::where('user_id', $user_id)
-                    ->where('month', now()->format('m-Y'))
-                    ->first();
-
-        $limit = $budget ? $budget->limit : 0;
+        $limit = Budget::where('user_id', $user_id)
+                    ->whereIn('month', $months)
+                    ->sum('limit');
 
         $spend = Transaction::where('user_id', $user_id)
             ->whereBetween('date', [$from, $to])

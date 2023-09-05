@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Content, Transactions } from '@/Pages/Dashboard/Components';
-import { CURRENCY_SYMBOLS } from '@/contants';
+import { CURRENCY_SYMBOLS } from '@/constants';
 
 export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
     const [loading, setLoading] = useState(false);
@@ -11,6 +11,12 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
     const [summary, setSummary] = useState(smry);
     const [budget, setBudget] = useState(bdgt);
     const [categoryDetail, setCategoryDetail] = useState(null);
+
+    const [chartData, setChartData] = useState({
+        type: 'bar',
+        labels: [],
+        datasets: []
+    });
 
     const currency = CURRENCY_SYMBOLS[auth.user.currency];
 
@@ -51,7 +57,7 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
         <AuthenticatedLayout hideAll={true}>
             <Head title="Dashboard" />
 
-            <div className="x-dashboard px-20">
+            <div className="x-dashboard px-20 pt-16">
                 <Content
                     auth={auth}
                     categories={categories}
