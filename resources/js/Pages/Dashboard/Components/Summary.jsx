@@ -36,14 +36,14 @@ export default function Summary({
                     </div>
             </SectionTitle>
 
-            <div className='summary rounded p-4 mt-5'>
+            <div className='summary shadow bg-white rounded p-4 mt-5'>
                 <div className="grid grid-cols-12">
                     <div className="col-span-8 pr-5">
                         <div className="grid grid-cols-12">
                             { figures.map((figure, index) => {
                                 return (
                                     <div key={index} className={`col-span-4 figure ${figure.color} rounded`}>
-                                        <div className="icon">
+                                        <div className="icon w-8 h-8 flex justify-center items-center rounded-full">
                                             <i className={`mdi ${figure.icon} text-xl`}></i>
                                         </div>
                                         <div className="amount">

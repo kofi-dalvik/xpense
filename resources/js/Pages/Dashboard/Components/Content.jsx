@@ -15,7 +15,7 @@ export default function Content({
     onChartClick,
 }) {
     return (
-        <div className="x-dashboard-c">
+        <div className="x-dashboard-c w-3/4">
             <Header />
 
             <div className='p-5'>

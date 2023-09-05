@@ -100,7 +100,7 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
         <AuthenticatedLayout hideAll={true}>
             <Head title="Dashboard" />
 
-            <div className="x-dashboard px-20 pt-16">
+            <div className="x-dashboard relative min-h-screen px-20 pt-16">
                 <Content
                     auth={auth}
                     categories={categories}
