@@ -3,6 +3,7 @@ import { EVENT_ADD_TRNX } from "@/constants";
 import { publish } from "@/libs/events";
 
 export default function Summary({
+    auth,
     currency,
     categories,
     dateRange,
@@ -68,7 +69,8 @@ export default function Summary({
                             <Chart
                                 currency={currency}
                                 chartData={chartData}
-                                onChartClick={onChartClick} />
+                                onChartClick={onChartClick}
+                                auth={auth} />
                         </div>
                     </div>
 

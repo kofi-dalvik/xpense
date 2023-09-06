@@ -28,7 +28,9 @@ export default function Content({
                     refreshDashboard={refreshDashboard}
                     currency={currency}
                     chartData={chartData}
-                    onChartClick={onChartClick} />
+                    onChartClick={onChartClick}
+                    auth={auth}
+                    />
 
                 <div className="my-14"></div>
 
@@ -38,7 +40,8 @@ export default function Content({
                     refreshDashboard={refreshDashboard}
                     categoryDetail={categoryDetail}
                     fetchCategory={fetchCategory}
-                    currency={currency} />
+                    currency={currency}
+                    auth={auth} />
             </div>
         </div>
     );

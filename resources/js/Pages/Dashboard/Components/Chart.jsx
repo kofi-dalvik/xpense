@@ -1,9 +1,20 @@
+import Dropdown from '@/Components/Dropdown';
 import { createChart } from '@/libs/chart';
 import { get } from 'lodash';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-export default function Chart({ chartData, onChartClick }) {
+export default function Chart({ auth, chartData, onChartClick }) {
     const ref = useRef(null);
+
+    const [chartType, setChartType] = useState(chartData.type);
+
+    const chartTypes = ['bar', 'line', 'pie'];
+
+    const chartIcons = {
+        'bar': 'mdi-chart-bar',
+        'line': 'mdi-chart-line',
+        'pie': 'mdi-chart-pie',
+    };
 
     useEffect(() => {
         const options = {
@@ -41,13 +52,49 @@ export default function Chart({ chartData, onChartClick }) {
 
     return (
         <>
-            { chartData.parent && (
-                <div className='mb-2'>
-                    <button className="text-primary underline" type='button' onClick={ e => onChartClick(-1) }>Main Categories</button>
-                    <span className="ms-1 me-1">/</span>
-                    <button className="text-muted" type='button'>{ chartData.parent }</button>
+            <div className="flex justify-between mb-2">
+                <div>
+                    <div>
+                        <button
+                            className={(chartData.parent ? 'underline text-primary' : 'text-muted')}
+                            type='button'
+                            onClick={ e => onChartClick(-1) }>Main Categories</button>
+                        { chartData.parent && (
+                            <>
+                                <span className="ms-1 me-1">/</span>
+                                <button className="text-muted" type='button'>{ chartData.parent }</button>
+                            </>
+                        ) }
+                    </div>
                 </div>
-            ) }
+
+                <div>
+                    <Dropdown>
+                        <Dropdown.Trigger>
+                            <span className="inline-flex rounded-md">
+                                <button
+                                    type="button"
+                                    className="inline-flex items-center px-3 py-0 border border-transparent text-sm leading-4 font-medium text-purple-500 bg-purple-100 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150 res-text-sm capitalize"
+                                >
+                                    <i className={"mdi me-2 " + chartIcons[chartType]}></i> { chartType }
+                                    <i className="mdi mdi-chevron-down ms-2 text-xl"></i>
+                                </button>
+                            </span>
+                        </Dropdown.Trigger>
+
+                        <Dropdown.Content>
+                            { chartTypes.map((type) => {
+                                return (
+                                    <Dropdown.Link href="#" key={type} onClick={ e => setChartType(type) }>
+                                        <i className={"mdi me-1 " + chartIcons[type]}></i>
+                                        <span className="capitalize">{type}</span>
+                                    </Dropdown.Link>
+                                );
+                            }) }
+                        </Dropdown.Content>
+                    </Dropdown>
+                </div>
+            </div>
 
             <div className='chart-container flex justify-center h-56 md:h-72'>
                 <canvas ref={ref}></canvas>
