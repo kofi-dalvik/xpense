@@ -28,7 +28,7 @@ export default function Categories({ currency, dateRange, categories, refreshDas
                 icon="mdi-google-circles-extended"
                 title="Categories"
                 subtitle="Manage your categories">
-                    <div className="sm:text-end">
+                    <div className="md:text-end">
                         <button onClick={() => setShowAddCategory(true) } className='btn bg-white shadow text-sm'>
                             <i className='mdi mdi-plus me-2'></i>
                             Add Category
@@ -36,7 +36,7 @@ export default function Categories({ currency, dateRange, categories, refreshDas
                     </div>
             </SectionTitle>
 
-            <div className="categories pb-4 my-8 grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-4">
+            <div className="categories pb-4 my-8 grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-4">
                 { categories.map((category, index) => {
                     return <CategoryItem
                             key={index}

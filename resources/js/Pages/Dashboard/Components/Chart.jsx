@@ -49,7 +49,7 @@ export default function Chart({ chartData, onChartClick }) {
                 </div>
             ) }
 
-            <div className='chart-container flex justify-center h-56 sm:h-72'>
+            <div className='chart-container flex justify-center h-56 md:h-72'>
                 <canvas ref={ref}></canvas>
             </div>
         </>

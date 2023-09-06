@@ -24,7 +24,7 @@ export default function Transactions({ auth, categories, currency, transactions,
     }, []);
 
     return (
-        <div className="x-transactions left-0 sm:left-auto fixed top-0 right-0 bottom-0 sm:w-1/4 shadow overflow-y-auto">
+        <div className="x-transactions left-0 md:left-auto fixed top-0 right-0 bottom-0 md:w-1/4 shadow overflow-y-auto">
             <div className="sticky top-0 shadow p-3">
                 <header className="header flex justify-end p-1">
                     <div className="ml-3 relative">
