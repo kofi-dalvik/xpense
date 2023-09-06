@@ -4,6 +4,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Content, Transactions } from '@/Pages/Dashboard/Components';
 import { CURRENCY_SYMBOLS } from '@/constants';
 import { first } from 'lodash';
+import { StoreProvider } from './Store';
 
 export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
     const [loading, setLoading] = useState(false);
@@ -97,32 +98,49 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
         parseChartData(categories);
     }, [categories]);
 
+    const store = {
+        categories,
+        transactions,
+        summary,
+        budget,
+        dateRange,
+        setDateRange,
+        refreshDashboard,
+        fetchCategory,
+        categoryDetail,
+        currency,
+        chartData,
+        onChartClick
+    };
+
     return (
-        <AuthenticatedLayout hideAll={true}>
-            <Head title="Dashboard" />
+        <StoreProvider value={ store }>
+            <AuthenticatedLayout hideAll={true}>
+                <Head title="Dashboard" />
 
-            <div className="x-dashboard relative min-h-screen md:px-20 pt-24 md:pt-16">
-                <Content
-                    auth={auth}
-                    categories={categories}
-                    setDateRange={ setDateRange }
-                    dateRange={ dateRange }
-                    summary={ summary }
-                    budget={ budget }
-                    refreshDashboard={refreshDashboard}
-                    fetchCategory={fetchCategory}
-                    categoryDetail={categoryDetail}
-                    currency={currency}
-                    chartData={chartData}
-                    onChartClick={onChartClick} />
+                <div className="x-dashboard relative min-h-screen md:px-20 pt-24 md:pt-16">
+                    <Content
+                        auth={auth}
+                        categories={categories}
+                        setDateRange={ setDateRange }
+                        dateRange={ dateRange }
+                        summary={ summary }
+                        budget={ budget }
+                        refreshDashboard={refreshDashboard}
+                        fetchCategory={fetchCategory}
+                        categoryDetail={categoryDetail}
+                        currency={currency}
+                        chartData={chartData}
+                        onChartClick={onChartClick} />
 
-                <Transactions
-                    auth={auth}
-                    transactions={transactions}
-                    currency={currency}
-                    refreshDashboard={refreshDashboard}
-                    categories={categories} />
-            </div>
-        </AuthenticatedLayout>
+                    <Transactions
+                        auth={auth}
+                        transactions={transactions}
+                        currency={currency}
+                        refreshDashboard={refreshDashboard}
+                        categories={categories} />
+                </div>
+            </AuthenticatedLayout>
+        </StoreProvider>
     );
 }
