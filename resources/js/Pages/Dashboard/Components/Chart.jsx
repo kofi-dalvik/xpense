@@ -6,7 +6,7 @@ export default function Chart({ chartData, onChartClick }) {
     const ref = useRef(null);
 
     useEffect(() => {
-        const chart = createChart(ref.current, chartData, {
+        const options = {
             onClick: (params) => {
                 if (onChartClick) {
                     const category = get(chartData.categories, params.index);
@@ -15,8 +15,11 @@ export default function Chart({ chartData, onChartClick }) {
                         onChartClick(category);
                     }
                 }
-            },
-            scales: {
+            }
+        };
+
+        if (chartData.type !== 'pie') {
+            options.scales = {
                 y: {
                     beginAtZero: true,
                     ticks: {
@@ -26,8 +29,10 @@ export default function Chart({ chartData, onChartClick }) {
                         }
                     }
                 }
-            }
-        });
+            };
+        }
+
+        const chart = createChart(ref.current, chartData, options);
 
         return () => {
             chart.destroy();
@@ -44,7 +49,7 @@ export default function Chart({ chartData, onChartClick }) {
                 </div>
             ) }
 
-            <div className='chart-container flex justify-center h-72'>
+            <div className='chart-container flex justify-center h-56 sm:h-72'>
                 <canvas ref={ref}></canvas>
             </div>
         </>

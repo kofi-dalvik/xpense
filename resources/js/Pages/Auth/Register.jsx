@@ -69,13 +69,13 @@ export default function Register() {
 
                 <div className="mt-4">
                     <InputLabel value="Currency" />
-                    <div className="flex flex-wrap border p-1 rounded">
+                    <div className="flex flex-wrap justify-center border p-1 rounded">
                         { CURRENCIES.map((currency) => {
                             return (
                                 <PrimaryButton type="button" key={currency.short}
                                     onClick={() => setData('currency', currency.short)}
                                     className={
-                                        `me-2 bg-slate-200 ` +
+                                        `m-1 bg-slate-200 ` +
                                         (currency.short === data.currency ? 'bg-purple-600 text-white' : '')
                                     }>
                                     <span className='truncate'>{currency.short} ({currency.icon})</span>

@@ -7,7 +7,7 @@ export default function TextButton({ title = 'Modify', text = 'Modify', icon = '
     return (
         <a href="#"
             onClick={ onClick }
-            className="inline-flex items-center text-primary"
+            className="inline-flex items-center text-blue-700 "
             title={ title }>
             <i className={`mdi ${icon} text-xs me-1`}></i>
             <span className="text-xs">{ text }</span>

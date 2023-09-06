@@ -1,4 +1,30 @@
 .x-dashboard-c .summary .budget {
     @apply h-full;
-    border-left: 1px solid #F0F1F6;
+}
+
+.x-transactions {
+    @apply bg-white;
+    display: block;
+}
+
+.res-text-xs {
+    @apply text-xs;
+}
+.res-text-sm {
+    @apply text-xs md:text-sm;
+}
+.res-text-5xl {
+    @apply text-2xl md:text-5xl;
+}
+.res-text-xl {
+    @apply text-sm md:text-xl;
+}
+.res-text-3xl {
+    @apply text-xl md:text-3xl;
+}
+
+@media screen and (max-width: 768px) {
+    .x-transactions {
+        @apply hidden;
+    }
 }

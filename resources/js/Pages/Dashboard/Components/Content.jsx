@@ -15,10 +15,10 @@ export default function Content({
     onChartClick,
 }) {
     return (
-        <div className="x-dashboard-c w-3/4">
+        <div className="x-dashboard-c sm:w-3/4">
             <Header />
 
-            <div className='p-5'>
+            <div className='p-4 sm:p-5'>
                 <Summary
                     dateRange={ dateRange }
                     setDateRange={ setDateRange }

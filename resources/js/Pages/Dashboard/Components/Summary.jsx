@@ -31,26 +31,26 @@ export default function Summary({
                 icon="mdi-chart-areaspline"
                 title={ secTitle }
                 subtitle="View summary of your transactions">
-                    <div className="bg-purple-100 p-3 rounded">
+                    <div className="fixed top-14 left-0 right-0 shadow bg-white sm:shadow-none sm:static sm:bg-purple-100 p-3 sm:rounded">
                         <DateRangePicker value={ dateRange } onChange={ setDateRange } />
                     </div>
             </SectionTitle>
 
-            <div className='summary shadow bg-white rounded p-4 mt-5'>
-                <div className="grid grid-cols-12">
-                    <div className="col-span-8 pr-5">
-                        <div className="grid grid-cols-12">
+            <div className='summary mt-5'>
+                <div className="grid grid-cols-12 gap-4">
+                    <div className="col-span-12 sm:col-span-8 bg-white p-4 rounded shadow">
+                        <div className="grid grid-cols-12 gap-2">
                             { figures.map((figure, index) => {
                                 return (
                                     <div key={index} className={`col-span-4 figure ${figure.color} rounded`}>
                                         <div className="icon w-8 h-8 flex justify-center items-center rounded-full">
                                             <i className={`mdi ${figure.icon} text-xl`}></i>
                                         </div>
-                                        <div className="amount">
-                                            <span className="text-sm">{currency}</span> {figure.amount.toLocaleString()}
+                                        <div className="amount res-text-sm">
+                                            <span className="res-text-sm">{currency}</span> {figure.amount.toLocaleString()}
                                         </div>
                                         <div className="text-muted flex items-center text-sm">
-                                            <span className="me-2">{figure.name}</span>
+                                            <span className="me-2 res-text-sm">{figure.name}</span>
                                             { !figure.hideMore && (
                                                 <TextButton
                                                     text="Add"
@@ -72,7 +72,7 @@ export default function Summary({
                         </div>
                     </div>
 
-                    <div className="col-span-4">
+                    <div className="col-span-12 sm:col-span-4 bg-white p-4 shadow rounded">
                         <Budget
                             budget={budget}
                             currency={currency}

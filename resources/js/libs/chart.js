@@ -1,4 +1,4 @@
-import { get, first, fill } from 'lodash';
+import { get, first, fill, shuffle } from 'lodash';
 import Chart from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { LIGHT_COLORS } from '@/constants';
@@ -9,7 +9,7 @@ const DEFAULT_COLOR = `#F2F2F2`;
 
 export const createChart = (canvas, data, options) => {
     const dataLebels = get(data, 'dataLabels', []);
-    let colors = LIGHT_COLORS.slice(0, dataLebels.length);
+    let colors = shuffle(LIGHT_COLORS).slice(0, dataLebels.length);
     const offset = get(data, 'offset', fill(Array(dataLebels.length), 0));
 
     const chart = new Chart(canvas.getContext('2d'), {

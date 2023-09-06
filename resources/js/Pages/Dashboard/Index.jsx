@@ -12,9 +12,10 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
     const [summary, setSummary] = useState(smry);
     const [budget, setBudget] = useState(bdgt);
     const [categoryDetail, setCategoryDetail] = useState(null);
+    const [chartType, setChartType] = useState('pie');
 
     const [chartData, setChartData] = useState({
-        type: 'bar',
+        type: chartType,
         categories: [],
         values: [],
         labels: [],
@@ -70,7 +71,7 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
             data.dataLabels.push(currency + '' + parent.total.toLocaleString());
         }
 
-        setChartData({...data, currency});
+        setChartData({...data, currency, type: chartType });
     };
 
     const onChartClick = (category) => {
@@ -100,7 +101,7 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
         <AuthenticatedLayout hideAll={true}>
             <Head title="Dashboard" />
 
-            <div className="x-dashboard relative min-h-screen px-20 pt-16">
+            <div className="x-dashboard relative min-h-screen sm:px-20 pt-24 sm:pt-16">
                 <Content
                     auth={auth}
                     categories={categories}

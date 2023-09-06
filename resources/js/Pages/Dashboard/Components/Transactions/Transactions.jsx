@@ -24,8 +24,8 @@ export default function Transactions({ auth, categories, currency, transactions,
     }, []);
 
     return (
-        <div className="bg-white fixed top-0 right-0 bottom-0 w-1/4 shadow overflow-y-auto">
-            <div className="sticky top-0 bg-white shadow p-3">
+        <div className="x-transactions left-0 sm:left-auto fixed top-0 right-0 bottom-0 sm:w-1/4 shadow overflow-y-auto">
+            <div className="sticky top-0 shadow p-3">
                 <header className="header flex justify-end p-1">
                     <div className="ml-3 relative">
                         <Dropdown>
@@ -33,7 +33,7 @@ export default function Transactions({ auth, categories, currency, transactions,
                                 <span className="inline-flex rounded-md">
                                     <button
                                         type="button"
-                                        className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium text-purple-500 bg-purple-100 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                        className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium text-purple-500 bg-purple-100 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150 res-text-sm"
                                     >
                                         <i className="mdi mdi-account-circle me-2"></i> {auth.user.name}
                                         <i className="mdi mdi-chevron-down ms-2 text-xl"></i>
@@ -58,7 +58,7 @@ export default function Transactions({ auth, categories, currency, transactions,
                     title="Transactions"
                     subtitle="Manage your categories">
                         <div className="text-end">
-                            <button onClick={ () => setShowAddTrans(true) } className='btn bg-white shadow text-sm'>
+                            <button onClick={ () => setShowAddTrans(true) } className='btn bg-white shadow text-purple-500 res-text-sm'>
                                 <i className='mdi mdi-plus me-1'></i>
                                 Add
                             </button>
