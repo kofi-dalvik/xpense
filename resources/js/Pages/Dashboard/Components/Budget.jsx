@@ -3,7 +3,7 @@ import InputLabel from "@/Components/InputLabel";
 import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { TextButton } from "@/Pages/Dashboard/Components";
+import TextButton from "@/Pages/Dashboard/Components/TextButton";
 import { useForm } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
 import { createChart } from "@/libs/chart";

@@ -1,8 +1,8 @@
-import { SectionTitle } from "@/Pages/Dashboard/Components";
 import { useState } from "react";
-import CategoryItem from "./CategoryItem";
-import AddCategory from "./AddCategory";
-import ViewCategory from "./ViewCategory";
+import SectionTitle from "@/Pages/Dashboard/Components/SectionTitle";
+import AddCategory from "@/Pages/Dashboard/Components/Categories/AddCategory";
+import CategoryItem from "@/Pages/Dashboard/Components/Categories/CategoryItem";
+import ViewCategory from "@/Pages/Dashboard/Components/Categories/ViewCategory";
 
 
 export default function Categories({ currency, dateRange, categories, refreshDashboard, fetchCategory, categoryDetail }) {

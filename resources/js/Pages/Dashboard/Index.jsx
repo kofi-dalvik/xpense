@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
-import { Head } from '@inertiajs/react';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Content, Transactions } from '@/Pages/Dashboard/Components';
-import { CURRENCY_SYMBOLS } from '@/constants';
 import { first } from 'lodash';
+import { Head } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
 import { StoreProvider } from './Store';
+import { CURRENCY_SYMBOLS } from '@/constants';
+import Content from '@/Pages/Dashboard/Components/Content';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import Transactions from '@/Pages/Dashboard/Components/Transactions/Transactions';
 
 export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
     const [loading, setLoading] = useState(false);

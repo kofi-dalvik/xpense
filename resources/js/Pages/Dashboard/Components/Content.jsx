@@ -1,4 +1,7 @@
-import { Header, Summary, Categories } from '@/Pages/Dashboard/Components';
+import Header from '@/Pages/Dashboard/Components/Header';
+import Summary from '@/Pages/Dashboard/Components/Summary';
+import Categories from '@/Pages/Dashboard/Components/Categories/Categories';
+
 
 export default function Content({
     auth,

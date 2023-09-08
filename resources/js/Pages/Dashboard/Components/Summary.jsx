@@ -1,4 +1,8 @@
-import { TextButton, SectionTitle, DateRangePicker, Chart, Budget } from "@/Pages/Dashboard/Components";
+import TextButton from "@/Pages/Dashboard/Components/TextButton";
+import SectionTitle from "@/Pages/Dashboard/Components/SectionTitle";
+import DateRangePicker from "@/Pages/Dashboard/Components/DateRangePicker";
+import Chart from "@/Pages/Dashboard/Components/Chart";
+import Budget from "@/Pages/Dashboard/Components/Budget";
 import { EVENT_ADD_TRNX } from "@/constants";
 import { publish } from "@/libs/events";
 

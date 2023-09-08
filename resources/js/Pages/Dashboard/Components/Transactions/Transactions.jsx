@@ -1,5 +1,5 @@
 import Dropdown from '@/Components/Dropdown';
-import { SectionTitle } from '@/Pages/Dashboard/Components';
+import SectionTitle from '@/Pages/Dashboard/Components/SectionTitle';
 import TransactionItem from '@/Pages/Dashboard/Components/Transactions/TransactionItem';
 import AddTransaction from './AddTransaction';
 import { useEffect, useState } from 'react';

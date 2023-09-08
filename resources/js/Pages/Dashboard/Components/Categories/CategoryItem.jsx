@@ -1,4 +1,4 @@
-import { TextButton } from "@/Pages/Dashboard/Components";
+import TextButton from "@/Pages/Dashboard/Components/TextButton";
 
 const CategoryItem = ({ currency, category, slim = false, parent_id, onDetailsClick = () => {}, onSelected = () => {} }) => {
     return (
