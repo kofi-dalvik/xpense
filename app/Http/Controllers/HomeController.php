@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
 
 class HomeController extends Controller
 {
-    public function index(Request $request): RedirectResponse
+    public function index(Request $request)
     {
-        return Redirect::route('login');
+        return Inertia::render('Welcome');
     }
 }
