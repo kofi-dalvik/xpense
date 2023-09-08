@@ -42,7 +42,8 @@ const Budget = ({currency, dateRange, budget, refreshDashboard }) => {
             type: 'doughnut',
             labels: labels,
             values: [budget.spend, budget.balance > 0 ? budget.balance : 0],
-            dataLabels: labels
+            dataLabels: labels,
+            colors: ['#F87171', '#34D399'],
         };
 
         const chart = createChart(ref.current, data);

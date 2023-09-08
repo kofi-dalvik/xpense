@@ -11,6 +11,10 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
+        if (auth()->check()) {
+            return Redirect::route('dashboard');
+        }
+        
         return Inertia::render('Welcome');
     }
 }

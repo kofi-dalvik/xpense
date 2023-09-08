@@ -2,7 +2,7 @@ import { first } from 'lodash';
 import { Head } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import { StoreProvider } from './Store';
-import { CURRENCY_SYMBOLS } from '@/constants';
+import { COLOR_VALUES, CURRENCY_SYMBOLS } from '@/constants';
 import Content from '@/Pages/Dashboard/Components/Content';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Transactions from '@/Pages/Dashboard/Components/Transactions/Transactions';
@@ -21,7 +21,8 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
         categories: [],
         values: [],
         labels: [],
-        dataLabels: []
+        dataLabels: [],
+        colors: [],
     });
 
     const currency = CURRENCY_SYMBOLS[auth.user.currency];
@@ -57,19 +58,21 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
     };
 
     const parseChartData = (cats, parent) => {
-        const data = { categories: [], values: [], labels: [], dataLabels: [] };
+        const data = { categories: [], values: [], labels: [], dataLabels: [], colors: [] };
 
         for (let cat of cats) {
             data.values.push(cat.total);
             data.labels.push(cat.name);
             data.dataLabels.push(currency + '' + cat.total.toLocaleString());
             data.categories.push(cat);
+            data.colors.push(COLOR_VALUES[cat.ui.color]);
         }
 
         if (parent) {
             data.parent = parent.name;
             data.values.push(parent.total);
             data.labels.push(`Others`);
+            data.colors.push('#FFDEAD');
             data.dataLabels.push(currency + '' + parent.total.toLocaleString());
         }
 

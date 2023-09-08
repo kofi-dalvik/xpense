@@ -1,7 +1,7 @@
 import { get, first, fill, shuffle } from 'lodash';
 import Chart from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { LIGHT_COLORS } from '@/constants';
+import { COLOR_VALUES } from '@/constants';
 
 Chart.register(ChartDataLabels);
 
@@ -9,7 +9,12 @@ const DEFAULT_COLOR = `#F2F2F2`;
 
 export const createChart = (canvas, data, options) => {
     const dataLebels = get(data, 'dataLabels', []);
-    let colors = shuffle(LIGHT_COLORS).slice(0, dataLebels.length);
+    let colors = data.colors;
+
+    // if (!colors || colors.length === 0) {
+    //     colors = shuffle(COLOR_VALUES).slice(0, dataLebels.length);
+    // }
+
     const offset = get(data, 'offset', fill(Array(dataLebels.length), 0));
 
     const chart = new Chart(canvas.getContext('2d'), {
@@ -30,7 +35,7 @@ export const createChart = (canvas, data, options) => {
                     display: false
                 },
                 datalabels: {
-                    color: 'black',
+                    color: 'white',
                     font: {
                         size: '11px'
                     },
@@ -54,21 +59,5 @@ export const createChart = (canvas, data, options) => {
     return chart;
 }
 
-export const setActivePieChartSlice = (chart, index) => {
-    let colors = [];
-    const dataSize = chart.data.labels.length;
-
-    if (index > -1) {
-        colors = fill(Array(dataSize), DEFAULT_COLOR);
-        colors[index] = LIGHT_COLORS[index];
-    } else {
-        colors = LIGHT_COLORS.slice(0, dataSize);
-    }
-
-    chart.data.datasets[0].backgroundColor = colors;
-    chart.data.datasets[0].offset = chart.data.datasets[0].offset.map(() => 0);
-    chart.data.datasets[0].offset[index] = 20;
-    chart.update();
-};
 
 export default Chart;

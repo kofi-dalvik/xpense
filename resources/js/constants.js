@@ -23,25 +23,16 @@ export const ICONS = [
 
 export const COLORS = [ 'indigo', 'purple', 'pink', 'gray', 'danger', 'success', 'warning', 'info', 'dark' ];
 
-export const LIGHT_COLORS = [
-    "#FF6B6B", // Light Coral
-    "#96CE7F", // Light Green
-    "#FFDAB9", // Light Peach
-    "#81DAF5", // Light Sky Blue
-    "#FFEC8B", // Light Goldenrod
-    "#E3C6E3", // Light Thistle
-    "#FFA07A", // Light Salmon
-    "#B0C4DE", // Light Steel Blue
-    "#FFB6C1", // Light Pink
-    "#AFEEE2", // Light Turquoise
-    "#C2DFFF", // Light Periwinkle
-    "#FFCCCB", // Light Rose
-    "#FAD02E", // Light Yellow
-    "#D8BFD8", // Thistle
-    "#F5E0B7", // Light Wheat
-    "#F0E68C", // Khaki
-    "#FFE4E1", // Misty Rose
-    "#D1E8E2", // Light Blue Green
-    "#F4A460", // SandyBrown
-    "#FFDEAD"  // NavajoWhite
-];
+export const COLOR_VALUES = {
+    'indigo': '#6366F1',
+    'purple': '#BC6DF8',
+    'pink': '#EC4899',
+    'gray': '#6F84A3',
+    'danger': '#F64E60',
+    'success': '#00C48C',
+    'warning': '#FFB822',
+    'info': '#127CF9',
+    'dark': '#343a40',
+    'primary': '#127CF9',
+    'secondary': '#6E84A3',
+};

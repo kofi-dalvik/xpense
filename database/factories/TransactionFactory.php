@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Category;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,9 +20,10 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         $count = Category::count();
+        $user = User::where('email', 'test@test.com')->first();
 
         return [
-            'user_id' => 1,
+            'user_id' => $user->id,
             'category_id' => $this->faker->numberBetween(1, $count),
             'description' => $this->faker->sentence(random_int(2, 6)),
             'date' => $this->faker->dateTimeBetween('-3 month', 'now'),
