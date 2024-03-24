@@ -59,7 +59,7 @@ const AddCategory = ({ show, setShow, category, onChange, parents, refreshDashbo
                             />
                         </div>
 
-                        <div className="flex justify-between">
+                        <div className="flex justify-between flex-col md:flex-row lg:flex-row mt-8">
                             <label className="flex items-center">
                                 <Checkbox
                                     name="addmore"
@@ -69,7 +69,7 @@ const AddCategory = ({ show, setShow, category, onChange, parents, refreshDashbo
                                 <span className="ml-2 text-sm text-gray-600">Keep this popup opened</span>
                             </label>
 
-                            <div>
+                            <div className="mt-3 md:mt-0 lg:mt-0 flex justify-between">
                                 <PrimaryButton
                                     onClick={ cancel }
                                     type="button"

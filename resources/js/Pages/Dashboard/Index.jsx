@@ -105,6 +105,10 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
         parseChartData(categories);
     }, [categories]);
 
+    useEffect(() => {
+        setChartData(curr => ({...curr, type: chartType}));
+    }, [chartType]);
+
     const store = {
         categories,
         transactions,
@@ -117,6 +121,7 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
         categoryDetail,
         currency,
         chartData,
+        setChartType,
         onChartClick
     };
 

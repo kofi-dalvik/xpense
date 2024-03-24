@@ -2,11 +2,13 @@ import Dropdown from '@/Components/Dropdown';
 import { createChart } from '@/libs/chart';
 import { get } from 'lodash';
 import { useEffect, useRef, useState } from 'react';
+import { useStore } from '../Store';
 
-export default function Chart({ auth, chartData, onChartClick }) {
+export default function Chart({ auth, onChartClick }) {
     const ref = useRef(null);
 
-    const [chartType, setChartType] = useState(chartData.type);
+    const {chartData, setChartType} = useStore();
+    // console.log(chartData);
 
     const chartTypes = ['bar', 'line', 'pie'];
 
@@ -76,7 +78,7 @@ export default function Chart({ auth, chartData, onChartClick }) {
                                     type="button"
                                     className="inline-flex items-center px-3 py-0 border border-transparent text-sm leading-4 font-medium text-purple-500 bg-purple-100 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150 res-text-sm capitalize"
                                 >
-                                    <i className={"mdi me-2 " + chartIcons[chartType]}></i> { chartType }
+                                    <i className={"mdi me-2 " + chartIcons[chartData.type]}></i> { chartData.type }
                                     <i className="mdi mdi-chevron-down ms-2 text-xl"></i>
                                 </button>
                             </span>

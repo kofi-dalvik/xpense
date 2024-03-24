@@ -74,7 +74,8 @@ export default function Summary({
                                 currency={currency}
                                 chartData={chartData}
                                 onChartClick={onChartClick}
-                                auth={auth} />
+                                auth={auth}
+                                setChatType />
                         </div>
                     </div>
 
