@@ -75,8 +75,8 @@ export default function Register() {
                                 <PrimaryButton type="button" key={currency.short}
                                     onClick={() => setData('currency', currency.short)}
                                     className={
-                                        `m-1 bg-slate-200 ` +
-                                        (currency.short === data.currency ? 'bg-purple-600 text-white' : '')
+                                        `m-1 ` +
+                                        (currency.short === data.currency ? 'bg-purple-500 text-white' : 'bg-slate-200')
                                     }>
                                     <span className='truncate'>{currency.short} ({currency.icon})</span>
                                 </PrimaryButton>

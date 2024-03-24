@@ -22,9 +22,3 @@
 .res-text-3xl {
     @apply text-xl md:text-3xl;
 }
-
-@media screen and (max-width: 768px) {
-    .x-transactions {
-        @apply hidden;
-    }
-}

@@ -22,11 +22,13 @@ export default function Categories({ currency, dateRange, categories, refreshDas
         setShowViewCategory(true);
     };
 
+    const secTitle = `Category Summaries from ${moment(dateRange.from).format('MMM DD')} to ${moment(dateRange.to).format('MMM DD')}`;
+
     return (
         <div className="mt-5">
             <SectionTitle
                 icon="mdi-google-circles-extended"
-                title="Categories"
+                title={secTitle}
                 subtitle="Manage your categories">
                     <div className="md:text-end">
                         <button onClick={() => setShowAddCategory(true) } className='btn bg-white shadow text-sm'>

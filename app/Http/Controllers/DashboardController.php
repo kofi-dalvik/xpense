@@ -45,9 +45,6 @@ class DashboardController extends Controller
 
     public function getSubCategories(Request $request, int $category_id)
     {
-        logger($request->all());
-        logger($category_id);
-
         $categories = $this->getCategories(
             $request->from, $request->to, $category_id
         );

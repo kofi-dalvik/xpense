@@ -16,10 +16,11 @@ export default function Content({
     categoryDetail,
     chartData,
     onChartClick,
+    onToggleSidebar
 }) {
     return (
         <div className="x-dashboard-c md:w-3/4">
-            <Header />
+            <Header onToggleSidebar={onToggleSidebar} />
 
             <div className='p-4 md:p-5'>
                 <Summary

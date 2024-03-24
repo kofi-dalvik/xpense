@@ -1,4 +1,3 @@
-import { first } from 'lodash';
 import { Head } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import { StoreProvider } from './Store';
@@ -94,6 +93,10 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
         }
     };
 
+    const onToggleSidebar = () => {
+        document.querySelector('.x-transactions').classList.toggle('hidden');
+    }
+
     useEffect(() => {
         fetchData();
     }, [dateRange]);
@@ -135,14 +138,16 @@ export default function Dashboard({ auth, cats, trans, smry, bdgt }) {
                         categoryDetail={categoryDetail}
                         currency={currency}
                         chartData={chartData}
-                        onChartClick={onChartClick} />
+                        onChartClick={onChartClick}
+                        onToggleSidebar={onToggleSidebar} />
 
                     <Transactions
                         auth={auth}
                         transactions={transactions}
                         currency={currency}
                         refreshDashboard={refreshDashboard}
-                        categories={categories} />
+                        categories={categories}
+                        onToggleSidebar={onToggleSidebar} />
                 </div>
             </AuthenticatedLayout>
         </StoreProvider>

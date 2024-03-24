@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { subscribe, unsubscribe } from '@/libs/events';
 import { EVENT_ADD_TRNX } from '@/constants';
 
-export default function Transactions({ auth, categories, currency, transactions, refreshDashboard }) {
+export default function Transactions({ auth, categories, currency, transactions, refreshDashboard, onToggleSidebar }) {
     const [showAddTrans, setShowAddTrans] = useState(false);
     const [defaultType, setDefaultType] = useState();
 
@@ -24,8 +24,8 @@ export default function Transactions({ auth, categories, currency, transactions,
     }, []);
 
     return (
-        <div className="x-transactions left-0 md:left-auto fixed top-0 right-0 bottom-0 md:w-1/4 shadow overflow-y-auto">
-            <div className="sticky top-0 shadow p-3">
+        <div className="x-transactions hidden md:block lg:block left-0 md:left-auto fixed top-0 right-0 bottom-0 md:w-1/4 shadow overflow-y-auto">
+            <div className="sticky bg-white top-0 shadow p-3">
                 <header className="header flex justify-end p-1">
                     <div className="ml-3 relative">
                         <Dropdown>
@@ -57,10 +57,15 @@ export default function Transactions({ auth, categories, currency, transactions,
                     icon="mdi-history"
                     title="Transactions"
                     subtitle="Manage your categories">
-                        <div className="text-end">
-                            <button onClick={ () => setShowAddTrans(true) } className='btn bg-white shadow text-purple-500 res-text-sm'>
+                        <div className="flex justify-between">
+                            <button onClick={ () => setShowAddTrans(true) } className='btn bg-teal-300 text-slate-700 shadow res-text-sm'>
                                 <i className='mdi mdi-plus me-1'></i>
-                                Add
+                                Create
+                            </button>
+
+                            <button onClick={ onToggleSidebar } className='btn bg-red-100 text-red-500 res-text-sm md:hidden lg:hidden'>
+                                <i className='mdi mdi-close me-1'></i>
+                                Cancel
                             </button>
                         </div>
                 </SectionTitle>

@@ -74,7 +74,7 @@ const AddTransaction = ({ defaultType, categories, show, setShow, onChange, refr
                             />
                         </div>
 
-                        <div className="flex justify-between mt-8">
+                        <div className="flex justify-between flex-col md:flex-row lg:flex-row mt-8">
                             <label className="flex items-center">
                                 <Checkbox
                                     name="addmore"
@@ -84,7 +84,7 @@ const AddTransaction = ({ defaultType, categories, show, setShow, onChange, refr
                                 <span className="ml-2 text-sm text-gray-600">Keep this popup opened</span>
                             </label>
 
-                            <div>
+                            <div className="mt-3 md:mt-0 lg:mt-0 flex justify-between">
                                 <PrimaryButton
                                     onClick={ cancel }
                                     type="button"
